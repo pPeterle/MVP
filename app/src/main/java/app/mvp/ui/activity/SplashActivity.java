@@ -75,6 +75,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.destroyView();
+        presenter.destroy();
     }
 }
