@@ -8,6 +8,27 @@ public class HomePresenter implements HomeContract.HomePresenter {
     }
 
     @Override
+    public void login() {
+        if (view != null) {
+            view.abreLogin();
+        }
+    }
+
+    @Override
+    public void registerClient() {
+        if (view != null) {
+            view.abreRegisterClient();
+        }
+    }
+
+    @Override
+    public void registerOwner() {
+        if (view != null) {
+            view.abreRegisterOwner();
+        }
+    }
+
+    @Override
     public void destroy() {
         this.view = null;
     }

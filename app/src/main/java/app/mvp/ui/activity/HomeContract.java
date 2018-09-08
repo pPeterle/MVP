@@ -14,6 +14,12 @@ public interface HomeContract {
 
     interface HomePresenter {
 
+        void login();
+
+        void registerClient();
+
+        void registerOwner();
+
         // Destroy a View para evitar Memory Leak
         void destroy();
 

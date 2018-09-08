@@ -26,8 +26,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         if (presenter == null) {
             presenter = new HomePresenter(this);
         }
-
-        onClick();
     }
 
     protected void onStart() {
@@ -38,9 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         ImageView imageView = findViewById(R.id.imageView_play_video);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageView.startAnimation(pulse);
-    }
 
-    private void onClick() {
         Button btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(login);
 
@@ -53,44 +49,42 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
 
     private View.OnClickListener registerClient = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-            intent = new Intent(HomeActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            HomeActivity.this.finish();
+        public void onClick(View v) {
+            presenter.registerClient();
         }
     };
 
     private View.OnClickListener registerOwner = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-
+        public void onClick(View v) {
+            presenter.registerOwner();
         }
     };
 
     private View.OnClickListener login = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-            intent = new Intent(HomeActivity.this, LoginActivity.class);
-            startActivity(intent);
-            HomeActivity.this.finish();
+        public void onClick(View v) {
+            presenter.login();
         }
     };
 
-    // MVP
-
     @Override
     public void abreLogin() {
-
+        intent = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        HomeActivity.this.finish();
     }
 
     @Override
     public void abreRegisterClient() {
-
+        intent = new Intent(HomeActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        HomeActivity.this.finish();
     }
 
     @Override
     public void abreRegisterOwner() {
-
+        presenter.registerOwner();
     }
 
     @Override
