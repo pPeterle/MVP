@@ -61,10 +61,6 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     @Override
     public void abreDashboard() {
-        ImageView imageView_logotipo = findViewById(R.id.imageView_logotipo);
-        Animation fade_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_out);
-        imageView_logotipo.startAnimation(fade_out);
-
         intent = new Intent(SplashActivity.this, DashboardActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();

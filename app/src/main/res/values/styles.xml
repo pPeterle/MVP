@@ -33,7 +33,7 @@
     <style name="splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/primary</item>
         <item name="android:colorPrimaryDark">@color/primary</item>
-        <item name="android:windowBackground">@color/primary</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
     </style>
 
     <style name="dashboard" parent="Theme.AppCompat.Light.NoActionBar">
