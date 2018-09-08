@@ -10,8 +10,6 @@ public interface SplashContract {
 
         void abreDashboard();
 
-        void delay();
-
     }
 
     interface SplashPresenter {

@@ -24,12 +24,18 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        handler = new Handler();
         session = new Session(this);
-        presenter = new SplashPresenter(this);
+
+        if (presenter == null) {
+            presenter = new SplashPresenter(this);
+        }
     }
 
     @Override
-    public void delay() {
+    public void onStart() {
+        super.onStart();
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
