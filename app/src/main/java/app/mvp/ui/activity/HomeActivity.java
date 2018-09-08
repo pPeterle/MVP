@@ -13,17 +13,19 @@ import android.widget.ImageView;
 
 import app.mvp.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeContract.HomeView {
     public Intent intent;
+
+    private HomeContract.HomePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        ImageView imageView = findViewById(R.id.imageView_play_video);
-        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-        imageView.startAnimation(pulse);
+        if (presenter == null) {
+            presenter = new HomePresenter(this);
+        }
 
         onClick();
     }
@@ -32,6 +34,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onStart();
 
         Window window = getWindow(); window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
+        ImageView imageView = findViewById(R.id.imageView_play_video);
+        Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+        imageView.startAnimation(pulse);
     }
 
     private void onClick() {
@@ -69,4 +75,27 @@ public class HomeActivity extends AppCompatActivity {
             HomeActivity.this.finish();
         }
     };
+
+    // MVP
+
+    @Override
+    public void abreLogin() {
+
+    }
+
+    @Override
+    public void abreRegisterClient() {
+
+    }
+
+    @Override
+    public void abreRegisterOwner() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.destroy();
+    }
 }
