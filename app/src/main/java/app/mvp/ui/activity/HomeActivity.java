@@ -84,7 +84,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
 
     @Override
     public void abreRegisterOwner() {
-        presenter.registerOwner();
+        // TODO
     }
 
     @Override
