@@ -18,7 +18,7 @@ public interface SplashContract {
         void logged(Session session);
 
         // Destroy a View para evitar Memory Leak
-        void destroy();
+        void onDestroy();
 
     }
 }

@@ -20,7 +20,7 @@ public class SplashPresenter implements SplashContract.SplashPresenter {
     }
 
     @Override
-    public void destroy() {
+    public void onDestroy() {
         this.view = null;
     }
 }

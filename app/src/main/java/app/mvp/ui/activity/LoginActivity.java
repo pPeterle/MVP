@@ -8,14 +8,31 @@ import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.ui.fragment.login.PhoneLoginFragment;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {
+    private LoginContract.LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
 
+        if (presenter == null) {
+            presenter = new LoginPresenter(this);
+        }
+
         FragmentHelper.load(new PhoneLoginFragment(), true, new Bundle(), this);
+    }
+
+    @Override
+    public void abreHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        LoginActivity.this.finish();
+    }
+
+    @Override
+    public void popBackStack() {
+        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -23,13 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onBackPressed();
 
         int count = getSupportFragmentManager().getBackStackEntryCount();
+        presenter.onBackPressed(count);
+    }
 
-        if (count == 0) {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            LoginActivity.this.finish();
-        } else {
-            getFragmentManager().popBackStack();
-        }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

@@ -21,7 +21,7 @@ public interface HomeContract {
         void registerOwner();
 
         // Destroy a View para evitar Memory Leak
-        void destroy();
+        void onDestroy();
 
     }
 }

@@ -90,6 +90,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.destroy();
+        presenter.onDestroy();
     }
 }

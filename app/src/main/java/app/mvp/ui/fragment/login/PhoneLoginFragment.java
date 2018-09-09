@@ -16,10 +16,21 @@ import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
 import app.mvp.helper.ValidatorHelper;
 
-public class PhoneLoginFragment extends Fragment {
+public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.PhoneLoginView {
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
+
+    private PhoneLoginContract.PhoneLoginPresenter presenter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (presenter == null) {
+            presenter = new PhoneLoginPresenter(this);
+        }
+    }
 
     @Nullable
     @Override
@@ -45,19 +56,28 @@ public class PhoneLoginFragment extends Fragment {
 
     private View.OnClickListener next = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onClick(View v) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
+            presenter.passwordFragment();
+
+            // POR TODA ESSA LÓGICA NO PRESENTER
+
+            /*if (contentFieldsIsValid()) {
                 buttonNextEnabled(false);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("phone", et_phone.getText().toString());
 
                 FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
-            }
+            }*/
         }
     };
+
+    @Override
+    public void abrePasswordFragment() {
+        // Chama o fragment
+    }
 
     private boolean contentFieldsIsValid() {
         if (phoneIsEmpty()) {

@@ -29,7 +29,7 @@ public class HomePresenter implements HomeContract.HomePresenter {
     }
 
     @Override
-    public void destroy() {
+    public void onDestroy() {
         this.view = null;
     }
 }
