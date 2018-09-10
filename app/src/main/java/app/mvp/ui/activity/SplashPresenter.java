@@ -7,15 +7,24 @@ public class SplashPresenter implements SplashContract.SplashPresenter {
 
     SplashPresenter(SplashContract.SplashView view) {
         this.view = view;
+
+        initPresenter();
+    }
+
+    private void initPresenter() {
+        if (view != null) {
+            view.initView();
+        }
     }
 
     @Override
     public void logged(Session session) {
-
-        if (!session.isLoggedIn()) {
-            view.abreHome();
-        } else {
-            view.abreDashboard();
+        if (view != null) {
+            if (!session.isLoggedIn()) {
+                view.abreHome();
+            } else {
+                view.abreDashboard();
+            }
         }
     }
 

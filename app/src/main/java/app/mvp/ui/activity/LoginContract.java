@@ -4,6 +4,8 @@ public interface LoginContract {
 
     interface LoginView {
 
+        void initView();
+
         void abreHome();
 
         void popBackStack();

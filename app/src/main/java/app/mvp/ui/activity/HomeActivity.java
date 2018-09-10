@@ -32,7 +32,10 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         super.onStart();
 
         Window window = getWindow(); window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    }
 
+    @Override
+    public void initView() {
         ImageView imageView = findViewById(R.id.imageView_play_video);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
         imageView.startAnimation(pulse);

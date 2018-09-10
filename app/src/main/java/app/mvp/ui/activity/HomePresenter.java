@@ -5,6 +5,14 @@ public class HomePresenter implements HomeContract.HomePresenter {
 
     HomePresenter(HomeContract.HomeView view) {
         this.view = view;
+
+        initPresenter();
+    }
+
+    private void initPresenter() {
+        if (view != null) {
+            view.initView();
+        }
     }
 
     @Override

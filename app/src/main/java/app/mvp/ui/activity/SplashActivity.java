@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import app.mvp.R;
 import app.mvp.session.Session;
@@ -33,19 +30,11 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
+    public void initView() {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Verifica se o usuário está logado e depois, qual activity abrir (Home ou Dashboard)
-                        presenter.logged(session);
-                    }
-                });
+                presenter.logged(session);
             }
         }, 1000);
     }

@@ -5,14 +5,24 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
 
     LoginPresenter(LoginContract.LoginView view) {
         this.view = view;
+
+        initPresenter();
+    }
+
+    private void initPresenter() {
+        if (view != null) {
+            view.initView();
+        }
     }
 
     @Override
     public void onBackPressed(int count) {
-        if (count == 0) {
-            view.abreHome();
-        } else {
-            view.popBackStack();
+        if (view != null) {
+            if (count == 0) {
+                view.abreHome();
+            } else {
+                view.popBackStack();
+            }
         }
     }
 

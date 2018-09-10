@@ -4,6 +4,8 @@ public interface HomeContract {
 
     interface HomeView {
 
+        void initView();
+
         void abreLogin();
 
         void abreRegisterClient();

@@ -6,6 +6,8 @@ public interface SplashContract {
 
     interface SplashView {
 
+        void initView();
+
         void abreHome();
 
         void abreDashboard();

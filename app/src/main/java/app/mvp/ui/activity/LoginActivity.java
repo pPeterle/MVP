@@ -19,7 +19,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         if (presenter == null) {
             presenter = new LoginPresenter(this);
         }
+    }
 
+    @Override
+    public void initView() {
         FragmentHelper.load(new PhoneLoginFragment(), true, new Bundle(), this);
     }
 

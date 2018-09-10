@@ -5,6 +5,12 @@ public class PhoneLoginPresenter implements PhoneLoginContract.PhoneLoginPresent
 
     PhoneLoginPresenter(PhoneLoginContract.PhoneLoginView view) {
         this.view = view;
+
+        initPresenter();
+    }
+
+    private void initPresenter() {
+        // TODO
     }
 
     @Override
