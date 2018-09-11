@@ -59,56 +59,32 @@ public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.P
         public void onClick(View v) {
             cleanErrorMessageFields();
 
-            presenter.passwordFragment();
-
-            // POR TODA ESSA LÓGICA NO PRESENTER
-
-            /*if (contentFieldsIsValid()) {
-                buttonNextEnabled(false);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("phone", et_phone.getText().toString());
-
-                FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
-            }*/
+            presenter.passwordFragment(et_phone.getText().toString());
         }
     };
 
     @Override
     public void abrePasswordFragment() {
-        // Chama o fragment
-    }
+        btn_next.setEnabled(false);
 
-    private boolean contentFieldsIsValid() {
-        if (phoneIsEmpty()) {
-            il_phone.setError(getString(R.string.empty_phone));
-            return false;
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString("phone", et_phone.getText().toString());
 
-        if (isNumeric()) {
-            if (et_phone.getText().toString().length() < 10) {
-                il_phone.setError(getString(R.string.invalid_phone_length));
-                return false;
-            }
-            return true;
-        }
-        return true;
-    }
-
-    private boolean phoneIsEmpty() {
-        return ValidatorHelper.isEmpty(et_phone.getText().toString());
-    }
-
-    private boolean isNumeric() {
-        return ValidatorHelper.isNumeric(et_phone.getText().toString());
-    }
-
-    private void buttonNextEnabled(Boolean enabled) {
-        btn_next.setEnabled(enabled);
+        FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
     }
 
     private void cleanErrorMessageFields() {
         il_phone.setError(null);
         il_phone.setErrorEnabled(false);
+    }
+
+    @Override
+    public void phoneIsEmpty() {
+        il_phone.setError(getString(R.string.empty_phone));
+    }
+
+    @Override
+    public void notIsPhone() {
+        il_phone.setError(getString(R.string.invalid_phone_length));
     }
 }

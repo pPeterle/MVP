@@ -15,6 +15,10 @@ public class ValidatorHelper {
         return TextUtils.isEmpty(string);
     }
 
+    public static boolean isPhone(String string) {
+        return PatternHelper.pattern("^\\+[0-9]{14,15}$", string);
+    }
+
     public static boolean isNumeric(String string) {
         return TextUtils.isDigitsOnly(string);
     }
