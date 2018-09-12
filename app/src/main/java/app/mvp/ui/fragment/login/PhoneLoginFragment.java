@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
-import app.mvp.helper.ValidatorHelper;
 
 public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.PhoneLoginView {
     private TextInputEditText et_phone;
@@ -59,19 +58,9 @@ public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.P
         public void onClick(View v) {
             cleanErrorMessageFields();
 
-            presenter.passwordFragment(et_phone.getText().toString());
+            presenter.callPasswordLogin(et_phone.getText().toString());
         }
     };
-
-    @Override
-    public void abrePasswordFragment() {
-        btn_next.setEnabled(false);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("phone", et_phone.getText().toString());
-
-        FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
-    }
 
     private void cleanErrorMessageFields() {
         il_phone.setError(null);
@@ -86,5 +75,21 @@ public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.P
     @Override
     public void notIsPhone() {
         il_phone.setError(getString(R.string.invalid_phone_length));
+    }
+
+    @Override
+    public void openPasswordLogin() {
+        btn_next.setEnabled(false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("phone", et_phone.getText().toString());
+
+        FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

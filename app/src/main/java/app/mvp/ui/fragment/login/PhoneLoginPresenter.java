@@ -10,26 +10,20 @@ public class PhoneLoginPresenter implements PhoneLoginContract.PhoneLoginPresent
     }
 
     @Override
-    public void passwordFragment(String phone) {
+    public void callPasswordLogin(String phone) {
         if (contentFieldsIsValid(phone)) {
-            if (view != null) {
-                view.abrePasswordFragment();
-            }
+            view.openPasswordLogin();
         }
     }
 
     private boolean contentFieldsIsValid(String phone) {
         if (phoneIsEmpty(phone)) {
-            if (view != null) {
-                view.phoneIsEmpty();
-            }
+            view.phoneIsEmpty();
             return false;
         }
 
         if (notIsPhone(phone)) {
-            if (view != null) {
-                view.notIsPhone();
-            }
+            view.notIsPhone();
             return false;
         }
         return true;

@@ -10,19 +10,15 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
     }
 
     private void initPresenter() {
-        if (view != null) {
-            view.initView();
-        }
+        view.initView();
     }
 
     @Override
     public void onBackPressed(int count) {
-        if (view != null) {
-            if (count == 0) {
-                view.abreHome();
-            } else {
-                view.popBackStack();
-            }
+        if (count == 0) {
+            view.openHome();
+        } else {
+            view.popBackStack();
         }
     }
 

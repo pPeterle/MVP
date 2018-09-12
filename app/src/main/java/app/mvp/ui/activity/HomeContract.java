@@ -6,21 +6,21 @@ public interface HomeContract {
 
         void initView();
 
-        void abreLogin();
+        void openLogin();
 
-        void abreRegisterClient();
+        void openRegisterClient();
 
-        void abreRegisterOwner();
+        void openRegisterOwner();
 
     }
 
     interface HomePresenter {
 
-        void login();
+        void callLogin();
 
-        void registerClient();
+        void callRegisterClient();
 
-        void registerOwner();
+        void callRegisterOwner();
 
         // Destroy a View para evitar Memory Leak
         void onDestroy();

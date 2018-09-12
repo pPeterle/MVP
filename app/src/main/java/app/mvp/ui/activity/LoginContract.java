@@ -6,7 +6,7 @@ public interface LoginContract {
 
         void initView();
 
-        void abreHome();
+        void openHome();
 
         void popBackStack();
     }

@@ -8,16 +8,16 @@ public interface SplashContract {
 
         void initView();
 
-        void abreHome();
+        void openHome();
 
-        void abreDashboard();
+        void openDashboard();
 
     }
 
     interface SplashPresenter {
 
         // Verificar se o usuário está logado
-        void logged(Session session);
+        void callSession(Session session);
 
         // Destroy a View para evitar Memory Leak
         void onDestroy();

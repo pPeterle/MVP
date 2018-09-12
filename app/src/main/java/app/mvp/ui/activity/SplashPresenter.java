@@ -12,19 +12,15 @@ public class SplashPresenter implements SplashContract.SplashPresenter {
     }
 
     private void initPresenter() {
-        if (view != null) {
-            view.initView();
-        }
+        view.initView();
     }
 
     @Override
-    public void logged(Session session) {
-        if (view != null) {
-            if (!session.isLoggedIn()) {
-                view.abreHome();
-            } else {
-                view.abreDashboard();
-            }
+    public void callSession(Session session) {
+        if (!session.isLoggedIn()) {
+            view.openHome();
+        } else {
+            view.openDashboard();
         }
     }
 

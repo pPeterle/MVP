@@ -34,13 +34,13 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                presenter.logged(session);
+                presenter.callSession(session);
             }
         }, 1000);
     }
 
     @Override
-    public void abreHome() {
+    public void openHome() {
         intent = new Intent(SplashActivity.this, HomeActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();
@@ -49,7 +49,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
     }
 
     @Override
-    public void abreDashboard() {
+    public void openDashboard() {
         intent = new Intent(SplashActivity.this, DashboardActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();

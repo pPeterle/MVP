@@ -10,30 +10,22 @@ public class HomePresenter implements HomeContract.HomePresenter {
     }
 
     private void initPresenter() {
-        if (view != null) {
-            view.initView();
-        }
+        view.initView();
     }
 
     @Override
-    public void login() {
-        if (view != null) {
-            view.abreLogin();
-        }
+    public void callLogin() {
+        view.openLogin();
     }
 
     @Override
-    public void registerClient() {
-        if (view != null) {
-            view.abreRegisterClient();
-        }
+    public void callRegisterClient() {
+        view.openRegisterClient();
     }
 
     @Override
-    public void registerOwner() {
-        if (view != null) {
-            view.abreRegisterOwner();
-        }
+    public void callRegisterOwner() {
+        view.openRegisterOwner();
     }
 
     @Override

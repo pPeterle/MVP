@@ -50,43 +50,43 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         btn_register_owner.setOnClickListener(registerOwner);
     }
 
+    private View.OnClickListener login = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.callLogin();
+        }
+    };
+
     private View.OnClickListener registerClient = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.registerClient();
+            presenter.callRegisterClient();
         }
     };
 
     private View.OnClickListener registerOwner = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            presenter.registerOwner();
-        }
-    };
-
-    private View.OnClickListener login = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            presenter.login();
+            presenter.callRegisterOwner();
         }
     };
 
     @Override
-    public void abreLogin() {
+    public void openLogin() {
         intent = new Intent(HomeActivity.this, LoginActivity.class);
         startActivity(intent);
         HomeActivity.this.finish();
     }
 
     @Override
-    public void abreRegisterClient() {
+    public void openRegisterClient() {
         intent = new Intent(HomeActivity.this, RegisterActivity.class);
         startActivity(intent);
         HomeActivity.this.finish();
     }
 
     @Override
-    public void abreRegisterOwner() {
+    public void openRegisterOwner() {
         // TODO
     }
 

@@ -27,7 +27,7 @@ import app.mvp.ui.activity.SplashActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class PasswordLoginFragment extends Fragment {
+public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Handler handler;
     public Intent intent;
     public LoginService loginService;
@@ -39,6 +39,8 @@ public class PasswordLoginFragment extends Fragment {
     private TextInputLayout il_password;
     private ImageButton btn_next;
 
+    private PasswordLoginContract.PasswordLoginPresenter presenter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,10 @@ public class PasswordLoginFragment extends Fragment {
         loginService = Config.getLoginService();
         session = new Session(getActivity());
         user = new User();
+
+        if (presenter == null) {
+            presenter = new PasswordLoginPresenter(this);
+        }
     }
 
     @Nullable
@@ -76,60 +82,15 @@ public class PasswordLoginFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                buttonNextEnabled(false);
+            buttonNextEnabled(false);
 
-                KeyboardToggleHelper.toggle(getActivity());
-                et_password.setEnabled(false);
-                progress.setVisibility(View.VISIBLE);
+            KeyboardToggleHelper.toggle(getActivity());
+            et_password.setEnabled(false);
 
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.setVisibility(View.GONE);
-
-                        session.setLogin(user);
-
-                        intent = new Intent(getActivity(), SplashActivity.class);
-
-                        if (getActivity() != null) {
-                            getActivity().startActivity(intent);
-                            getActivity().finish();
-                            getActivity().overridePendingTransition(R.anim.fade_in, 0);
-                        }
-                    }
-                }, 3000);
-
-                /*user = loginUser();
-                loginProcess(user);*/
-            }
+            user = loginUser();
+            presenter.callLoginProcess(user);
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (passwordIsEmpty()) {
-            il_password.setError(getString(R.string.empty_password));
-            return false;
-        }
-
-        if (notIsPassword()) {
-            il_password.setError(getString(R.string.invalid_password));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean passwordIsEmpty() {
-        return ValidatorHelper.isEmpty(et_password.getText().toString());
-    }
-
-    private boolean notIsPassword() {
-        return !ValidatorHelper.isPassword(et_password.getText().toString());
-    }
-
-    private void buttonNextEnabled(Boolean enabled) {
-        btn_next.setEnabled(enabled);
-    }
 
     private User loginUser() {
         Bundle args = getArguments();
@@ -142,56 +103,61 @@ public class PasswordLoginFragment extends Fragment {
         return user;
     }
 
-    private boolean isNumeric(String data) {
-        return ValidatorHelper.isNumeric(data);
-    }
-
     private void cleanErrorMessageFields() {
         il_password.setError(null);
         il_password.setErrorEnabled(false);
     }
 
-    public void loginProcess(User user) {
-        Call<User> response = loginService.login(user);
+    private void buttonNextEnabled(Boolean enabled) {
+        btn_next.setEnabled(enabled);
+    }
 
-        response.enqueue(new Callback<User>() {
+    @Override
+    public void passwordIsEmpty() {
+        il_password.setError(getString(R.string.empty_password));
+    }
+
+    @Override
+    public void notIsPassword() {
+        il_password.setError(getString(R.string.invalid_password));
+    }
+
+    @Override
+    public void errorProcess() {
+        buttonNextEnabled(true);
+
+        KeyboardToggleHelper.toggle(getActivity());
+        et_password.setEnabled(true);
+        progress.setVisibility(View.GONE);
+
+        ToastHelper.alert(getResources().getString(R.string.response_error), getActivity());
+    }
+
+    @Override
+    public void openDashboard() {
+        progress.setVisibility(View.VISIBLE);
+
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
-                final User resp = response.body();
+            public void run() {
+                progress.setVisibility(View.GONE);
 
-                if (resp != null) {
-                    if (response.isSuccessful()) {
-                        if (response.body() != null) {
-                            System.out.println("ResponseBody: " + resp);
+                session.setLogin(user);
 
-                            /*session.setLogin(resp);
+                intent = new Intent(getActivity(), SplashActivity.class);
 
-                            intent = new Intent(getActivity(), SplashActivity.class);
-
-                            if (getActivity() != null) {
-                                getActivity().startActivity(intent);
-                                getActivity().finish();
-                                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            }*/
-                        }
-                    }
+                if (getActivity() != null) {
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+                    getActivity().overridePendingTransition(R.anim.fade_in, 0);
                 }
-                buttonNextEnabled(true);
-
-                KeyboardToggleHelper.toggle(getActivity());
-                et_password.setEnabled(true);
-                progress.setVisibility(View.GONE);
             }
+        }, 3000);
+    }
 
-            @Override
-            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                buttonNextEnabled(true);
-
-                KeyboardToggleHelper.toggle(getActivity());
-                et_password.setEnabled(true);
-                progress.setVisibility(View.GONE);
-                ToastHelper.alert(getResources().getString(R.string.response_error), getActivity());
-            }
-        });
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

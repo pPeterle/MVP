@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void abreHome() {
+    public void openHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         LoginActivity.this.finish();

@@ -8,13 +8,13 @@ public interface PhoneLoginContract {
 
         void notIsPhone();
 
-        void abrePasswordFragment();
+        void openPasswordLogin();
 
     }
 
     interface PhoneLoginPresenter {
 
-        void passwordFragment(String phone);
+        void callPasswordLogin(String phone);
 
         void onDestroy();
 
