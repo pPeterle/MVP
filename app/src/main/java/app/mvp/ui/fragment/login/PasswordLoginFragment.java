@@ -30,7 +30,6 @@ import retrofit2.Callback;
 public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Handler handler;
     public Intent intent;
-    public LoginService loginService;
     public Session session;
     public ProgressBar progress;
 
@@ -46,7 +45,6 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         super.onCreate(savedInstanceState);
 
         handler = new Handler();
-        loginService = Config.getLoginService();
         session = new Session(getActivity());
         user = new User();
 
@@ -134,25 +132,19 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     }
 
     @Override
-    public void openDashboard() {
-        progress.setVisibility(View.VISIBLE);
+    public void openDashboard(User resp) {
+        progress.setVisibility(View.GONE);
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progress.setVisibility(View.GONE);
+        // Grava os dados retornados do Presenter, na sessão
+        session.setLogin(resp);
 
-                session.setLogin(user);
+        intent = new Intent(getActivity(), SplashActivity.class);
 
-                intent = new Intent(getActivity(), SplashActivity.class);
-
-                if (getActivity() != null) {
-                    getActivity().startActivity(intent);
-                    getActivity().finish();
-                    getActivity().overridePendingTransition(R.anim.fade_in, 0);
-                }
-            }
-        }, 3000);
+        if (getActivity() != null) {
+            getActivity().startActivity(intent);
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.fade_in, 0);
+        }
     }
 
     @Override

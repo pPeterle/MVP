@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
+import app.mvp.retrofit.Config;
+import app.mvp.service.LoginService;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -18,7 +20,8 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     public void callLoginProcess(User user) {
         if (contentFieldsIsValid(user.getPassword())) {
 
-            /*Call<User> response = loginService.login(user);
+            LoginService loginService = Config.getLoginService();
+            Call<User> response = loginService.login(user);
 
             response.enqueue(new Callback<User>() {
                 @Override
@@ -28,13 +31,12 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                     if (resp != null) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                System.out.println("ResponseBody: " + resp);
 
-                                view.openDashboard();
+                                // Pega o token JWT, uuid, establishment_uuid, e o nickname do retorno
+                                view.openDashboard(resp);
                             }
                         }
                     }
-
                     view.errorProcess();
                 }
 
@@ -42,7 +44,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                 public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                     view.errorProcess();
                 }
-            });*/
+            });
         }
     }
 

@@ -12,7 +12,7 @@ public interface PasswordLoginContract {
 
         void errorProcess();
 
-        void openDashboard();
+        void openDashboard(User resp);
 
     }
 
