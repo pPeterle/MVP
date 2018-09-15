@@ -36,7 +36,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             public void run() {
                 presenter.callSession(session);
             }
-        }, 300);
+        }, 500);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         startActivity(intent);
         SplashActivity.this.finish();
 
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(0, R.anim.fade_out);
     }
 
     @Override

@@ -82,7 +82,9 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
 
             buttonNextEnabled(false);
 
+            // Esconde o teclado
             KeyboardToggleHelper.toggle(getActivity());
+
             et_password.setEnabled(false);
 
             user = loginUser();
@@ -124,7 +126,9 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public void errorProcess() {
         buttonNextEnabled(true);
 
+        // Esconde o teclado
         KeyboardToggleHelper.toggle(getActivity());
+
         et_password.setEnabled(true);
         progress.setVisibility(View.GONE);
 
