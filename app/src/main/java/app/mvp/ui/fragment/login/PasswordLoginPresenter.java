@@ -1,9 +1,7 @@
 package app.mvp.ui.fragment.login;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
-import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
