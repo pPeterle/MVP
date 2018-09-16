@@ -1,6 +1,7 @@
 package app.mvp.ui.fragment.login;
 
 import app.mvp.model.User;
+import retrofit2.Call;
 
 public interface PasswordLoginContract {
 
