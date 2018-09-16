@@ -126,7 +126,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public void errorProcess() {
         buttonNextEnabled(true);
 
-        // Esconde o teclado
+        // Mostra o teclado
         KeyboardToggleHelper.toggle(getActivity());
 
         et_password.setEnabled(true);
