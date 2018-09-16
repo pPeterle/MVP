@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
 import app.mvp.session.Session;
-import app.mvp.ui.activity.SplashActivity;
+import app.mvp.ui.activity.splash.SplashActivity;
 
 public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Handler handler;

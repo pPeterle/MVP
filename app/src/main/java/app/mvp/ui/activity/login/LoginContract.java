@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.login;
 
 public interface LoginContract {
 

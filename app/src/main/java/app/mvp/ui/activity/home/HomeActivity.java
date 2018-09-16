@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import app.mvp.R;
+import app.mvp.ui.activity.login.LoginActivity;
+import app.mvp.ui.activity.register.RegisterActivity;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.HomeView {
     public Intent intent;

@@ -19,7 +19,7 @@ import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
-import app.mvp.ui.activity.TermsActivity;
+import app.mvp.ui.activity.terms.TermsActivity;
 
 public class PasswordConfirmRegisterFragment extends Fragment {
     public Bundle args;

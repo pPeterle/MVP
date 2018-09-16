@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import app.mvp.R;
 import app.mvp.session.Session;
 import app.mvp.ui.activity.dashboard.DashboardActivity;
+import app.mvp.ui.activity.home.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity implements SplashContract.SplashView {
     public Handler handler;
@@ -36,7 +37,7 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
             public void run() {
                 presenter.callSession(session);
             }
-        }, 500);
+        }, 1000);
     }
 
     @Override

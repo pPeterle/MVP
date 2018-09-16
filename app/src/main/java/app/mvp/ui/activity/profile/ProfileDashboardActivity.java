@@ -1,4 +1,4 @@
-package app.mvp.ui.activity.dashboard;
+package app.mvp.ui.activity.profile;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.terms;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

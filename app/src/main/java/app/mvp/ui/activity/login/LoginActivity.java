@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
+import app.mvp.ui.activity.home.HomeActivity;
 import app.mvp.ui.fragment.login.PhoneLoginFragment;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {

@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.home;
 
 public class HomePresenter implements HomeContract.HomePresenter {
     private HomeContract.HomeView view;

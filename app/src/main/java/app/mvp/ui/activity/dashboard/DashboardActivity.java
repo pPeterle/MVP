@@ -36,15 +36,13 @@ import java.util.ArrayList;
 
 import app.mvp.R;
 import app.mvp.adapter.EstablishmentsAdapter;
-import app.mvp.adapter.ItemClickListener;
-import app.mvp.helper.KeyboardToggleHelper;
-import app.mvp.helper.ToastHelper;
 import app.mvp.model.Establishment;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
 import app.mvp.service.EstablishmentService;
 import app.mvp.session.Session;
-import app.mvp.ui.activity.HomeActivity;
+import app.mvp.ui.activity.home.HomeActivity;
+import app.mvp.ui.activity.profile.ProfileDashboardActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 

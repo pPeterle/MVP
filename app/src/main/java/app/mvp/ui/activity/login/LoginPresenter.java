@@ -1,4 +1,4 @@
-package app.mvp.ui.activity;
+package app.mvp.ui.activity.login;
 
 public class LoginPresenter implements LoginContract.LoginPresenter {
     private LoginContract.LoginView view;

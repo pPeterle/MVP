@@ -49,6 +49,7 @@ public class NameRegisterFragment extends Fragment {
                 btn_next.setEnabled(false);
 
                 String name = et_name.getText().toString().trim();
+
                 Bundle bundle = new Bundle();
                 bundle.putString("name", name.substring(0,1).toUpperCase() + name.substring(1));
 
