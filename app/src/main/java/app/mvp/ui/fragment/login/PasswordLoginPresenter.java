@@ -2,6 +2,7 @@ package app.mvp.ui.fragment.login;
 
 import android.support.annotation.NonNull;
 
+import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
@@ -36,16 +37,27 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                                 view.openDashboard(resp);
                             }
                         }
+                    } else {
+
+                        // Telefone ou senha, incorreto
+                        view.errorLogin();
                     }
-                    view.errorProcess();
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                    view.errorProcess();
+                    view.onFailure();
                 }
             });
         }
+    }
+
+    @Override
+    public void onPause(User user) {
+        LoginService loginService = Config.getLoginService();
+        Call<User> response = loginService.login(user);
+
+        response.cancel();
     }
 
     private boolean contentFieldsIsValid(String password) {

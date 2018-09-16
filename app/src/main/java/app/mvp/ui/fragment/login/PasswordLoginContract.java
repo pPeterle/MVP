@@ -10,7 +10,9 @@ public interface PasswordLoginContract {
 
         void notIsPassword();
 
-        void errorProcess();
+        void onFailure();
+
+        void errorLogin();
 
         void openDashboard(User resp);
 
@@ -19,6 +21,8 @@ public interface PasswordLoginContract {
     interface PasswordLoginPresenter {
 
         void callLoginProcess(User user);
+
+        void onPause(User user);
 
         void onDestroy();
 

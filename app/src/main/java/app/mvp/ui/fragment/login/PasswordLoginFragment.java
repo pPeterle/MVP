@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
             // Esconde o teclado
             KeyboardToggleHelper.toggle(getActivity());
 
+            progress.setVisibility(View.VISIBLE);
             et_password.setEnabled(false);
 
             user = loginUser();
@@ -123,7 +125,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     }
 
     @Override
-    public void errorProcess() {
+    public void onFailure() {
         buttonNextEnabled(true);
 
         // Mostra o teclado
@@ -136,8 +138,15 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     }
 
     @Override
+    public void errorLogin() {
+        ToastHelper.alert("Telefone ou senha, incorreto", getActivity());
+    }
+
+    @Override
     public void openDashboard(User resp) {
         progress.setVisibility(View.GONE);
+
+        Log.i("UUID", resp.getUUID());
 
         // Grava os dados retornados do Presenter, na sessão
         session.setLogin(resp);
@@ -149,6 +158,12 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
             getActivity().finish();
             getActivity().overridePendingTransition(R.anim.fade_in, 0);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.onPause(user);
     }
 
     @Override
