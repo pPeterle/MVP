@@ -23,7 +23,7 @@ public interface PasswordLoginContract {
 
         void callLoginProcess(User user);
 
-        void onPause(User user);
+        void onPause();
 
         void onDestroy();
 

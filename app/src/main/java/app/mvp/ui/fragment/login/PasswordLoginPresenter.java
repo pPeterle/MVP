@@ -17,10 +17,10 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     private LoginService loginService;
     private Call<User> response;
 
-    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Call<User> response) {
+    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
         this.view = view;
         this.loginService = Config.getLoginService();
-        this.response = response;
+        //this.response = response;
     }
 
     @Override
@@ -58,8 +58,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     }
 
     @Override
-    public void onPause(User user) {
-        loginService.login(user);
+    public void onPause() {
         if (response != null) {
             response.cancel();
         }

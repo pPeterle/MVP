@@ -164,7 +164,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public void onPause() {
         super.onPause();
 
-        presenter.onPause(user);
+        presenter.onPause();
     }
 
     @Override
