@@ -18,15 +18,9 @@ import android.widget.ProgressBar;
 import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
-import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
-import app.mvp.retrofit.Config;
-import app.mvp.service.LoginService;
 import app.mvp.session.Session;
 import app.mvp.ui.activity.SplashActivity;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Handler handler;
@@ -98,8 +92,8 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         Bundle args = getArguments();
 
         if (args != null) {
-            String data = args.getString("phone");
-            user.setPhone(data);
+            String phone = args.getString("phone");
+            user.setPhone(phone);
             user.setPassword(et_password.getText().toString());
         }
         return user;

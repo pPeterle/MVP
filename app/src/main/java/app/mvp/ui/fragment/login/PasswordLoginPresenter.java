@@ -21,10 +21,10 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     @Override
     public void callLoginProcess(User user) {
+
         if (contentFieldsIsValid(user.getPassword())) {
 
             response = loginService.login(user);
-
             response.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
@@ -33,14 +33,10 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                     if (resp != null) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-
-                                // Pega o token JWT, uuid, establishment_uuid, e o nickname do retorno
                                 view.openDashboard(resp);
                             }
                         }
                     } else {
-
-                        // Telefone ou senha, incorreto
                         view.errorLogin();
                     }
                 }
