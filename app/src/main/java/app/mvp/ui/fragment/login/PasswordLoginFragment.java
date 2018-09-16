@@ -73,13 +73,11 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private View.OnClickListener next = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            cleanErrorMessageFields();
-
-            buttonNextEnabled(false);
-
             // Esconde o teclado
             KeyboardToggleHelper.toggle(getActivity());
 
+            cleanErrorMessageFields();
+            buttonNextEnabled(false);
             progress.setVisibility(View.VISIBLE);
             et_password.setEnabled(false);
 
@@ -120,11 +118,10 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
 
     @Override
     public void onFailure() {
-        buttonNextEnabled(true);
-
         // Mostra o teclado
         KeyboardToggleHelper.toggle(getActivity());
 
+        buttonNextEnabled(true);
         et_password.setEnabled(true);
         progress.setVisibility(View.GONE);
 
