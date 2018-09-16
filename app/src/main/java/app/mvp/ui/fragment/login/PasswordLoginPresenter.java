@@ -21,11 +21,11 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     @Override
     public void callLoginProcess(User user) {
-
         if (contentFieldsIsValid(user.getPassword())) {
 
             response = loginService.login(user);
             response.enqueue(new Callback<User>() {
+
                 @Override
                 public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
                     final User resp = response.body();

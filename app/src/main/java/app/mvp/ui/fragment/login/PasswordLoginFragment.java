@@ -140,8 +140,6 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public void openDashboard(User resp) {
         progress.setVisibility(View.GONE);
 
-        Log.i("UUID", resp.getUUID());
-
         // Grava os dados retornados do Presenter, na sessão
         session.setLogin(resp);
 
