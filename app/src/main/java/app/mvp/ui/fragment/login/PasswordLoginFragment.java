@@ -163,7 +163,6 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     @Override
     public void onPause() {
         super.onPause();
-
         presenter.onPause();
     }
 
