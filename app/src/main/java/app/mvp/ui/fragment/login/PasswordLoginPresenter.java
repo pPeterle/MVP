@@ -49,13 +49,6 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
         }
     }
 
-    @Override
-    public void onPause() {
-        if (response != null) {
-            response.cancel();
-        }
-    }
-
     private boolean contentFieldsIsValid(String password) {
         if (passwordIsEmpty(password)) {
             view.passwordIsEmpty();
@@ -75,6 +68,13 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     private boolean notIsPassword(String password) {
         return !ValidatorHelper.isPassword(password);
+    }
+
+    @Override
+    public void onPause() {
+        if (response != null) {
+            response.cancel();
+        }
     }
 
     @Override
