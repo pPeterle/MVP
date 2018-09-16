@@ -11,21 +11,19 @@ import retrofit2.Callback;
 
 public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLoginPresenter {
     private PasswordLoginContract.PasswordLoginView view;
-
     private LoginService loginService;
     private Call<User> response;
 
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
         this.view = view;
         this.loginService = Config.getLoginService();
-        //this.response = response;
     }
 
     @Override
     public void callLoginProcess(User user) {
         if (contentFieldsIsValid(user.getPassword())) {
 
-            loginService.login(user);
+            response = loginService.login(user);
 
             response.enqueue(new Callback<User>() {
                 @Override
