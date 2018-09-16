@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import app.mvp.helper.ToastHelper;
@@ -14,17 +15,19 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     private PasswordLoginContract.PasswordLoginView view;
 
     private LoginService loginService;
+    private Call<User> response;
 
-    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
+    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Call<User> response) {
         this.view = view;
         this.loginService = Config.getLoginService();
+        this.response = response;
     }
 
     @Override
     public void callLoginProcess(User user) {
         if (contentFieldsIsValid(user.getPassword())) {
 
-            Call<User> response = loginService.login(user);
+            loginService.login(user);
 
             response.enqueue(new Callback<User>() {
                 @Override
@@ -56,7 +59,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     @Override
     public void onPause(User user) {
-        Call<User> response = loginService.login(user);
+        loginService.login(user);
         if (response != null) {
             response.cancel();
         }
