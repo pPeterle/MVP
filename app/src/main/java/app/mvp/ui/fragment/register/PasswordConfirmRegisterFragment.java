@@ -161,12 +161,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
 
     @Override
     public void openDashboard(User user) {
-        KeyboardToggleHelper.toggle(getActivity());
-
-        buttonNextEnabled(false);
-        et_password_confirm.setEnabled(false);
-        tv_terms.setEnabled(false);
-        checkBox.setEnabled(false);
+        ToastHelper.alert("ABRIU O DASHBOARD", getActivity());
     }
 
     private void buttonNextEnabled(Boolean enabled) {
