@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,15 +14,25 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.helper.ValidatorHelper;
 
-public class PasswordRegisterFragment extends Fragment {
+public class PasswordRegisterFragment extends Fragment implements PasswordRegisterContract.PasswordRegisterView {
     public Bundle args;
     public String name, nickname, email, phone;
 
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private ImageButton btn_next;
+
+    private PasswordRegisterContract.PasswordRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new PasswordRegisterPresenter(this);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,44 +73,42 @@ public class PasswordRegisterFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                btn_next.setEnabled(false);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                bundle.putString("nickname", nickname);
-                bundle.putString("email", email);
-                bundle.putString("phone", phone);
-                bundle.putString("password", et_password.getText().toString());
-
-                FragmentHelper.load(new PasswordConfirmRegisterFragment(), true, bundle, getActivity());
-            }
+            presenter.callPasswordConfirmRegister(et_password.getText().toString());
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (passwordIsEmpty()) {
-            il_password.setError(getString(R.string.empty_password));
-            return false;
-        }
-
-        if (notIsPassword()) {
-            il_password.setError(getString(R.string.invalid_password));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean passwordIsEmpty() {
-        return ValidatorHelper.isEmpty(et_password.getText().toString());
-    }
-
-    private boolean notIsPassword() {
-        return !ValidatorHelper.isPassword(et_password.getText().toString());
-    }
 
     private void cleanErrorMessageFields() {
         il_password.setError(null);
         il_password.setErrorEnabled(false);
+    }
+
+    @Override
+    public void passwordIsEmpty() {
+        il_password.setError(getString(R.string.empty_password));
+    }
+
+    @Override
+    public void notIsPassword() {
+        il_password.setError(getString(R.string.invalid_password));
+    }
+
+    @Override
+    public void openPasswordConfirmRegister(String password) {
+        btn_next.setEnabled(false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("nickname", nickname);
+        bundle.putString("email", email);
+        bundle.putString("phone", phone);
+        bundle.putString("password", password);
+
+        FragmentHelper.load(new PasswordConfirmRegisterFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

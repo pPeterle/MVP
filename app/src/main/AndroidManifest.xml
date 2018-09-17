@@ -36,7 +36,7 @@
 
         <activity android:name=".ui.activity.dashboard.DashboardActivity" android:theme="@style/dashboard" android:screenOrientation="portrait" android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".ui.activity.profile.ProfileDashboardActivity" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.profile.ProfileActivity" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
 
         <activity android:name=".ui.activity.establishment.ListEstablishmentsActivity" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
 

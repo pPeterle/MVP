@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,34 +19,36 @@ import android.widget.TextView;
 import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
-import app.mvp.helper.ValidatorHelper;
+import app.mvp.model.User;
 import app.mvp.ui.activity.terms.TermsActivity;
 
-public class PasswordConfirmRegisterFragment extends Fragment {
-    public Bundle args;
-    public String name, nickname, email, phone, password;
+public class PasswordConfirmRegisterFragment extends Fragment implements PasswordConfirmRegisterContract.PasswordConfirmRegisterView {
     public Intent intent;
     public TextView tv_terms;
     public CheckBox checkBox;
     public ProgressBar progress;
 
+    private User user;
     private TextInputEditText et_password_confirm;
     private TextInputLayout il_password_confirm;
     private ImageButton btn_next;
+
+    private PasswordConfirmRegisterContract.PasswordConfirmRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new PasswordConfirmRegisterPresenter(this);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        args = getArguments();
-
-        if (args != null) {
-            name = args.getString("name");
-            nickname = args.getString("nickname");
-            email = args.getString("email");
-            phone = args.getString("phone");
-            password = args.getString("password");
-        }
+        user = new User();
     }
 
     @Nullable
@@ -92,59 +95,93 @@ public class PasswordConfirmRegisterFragment extends Fragment {
     private View.OnClickListener next = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            // Esconde o teclado
+            KeyboardToggleHelper.toggle(getActivity());
+
             cleanErrorMessageFields();
+            buttonNextEnabled(false);
+            et_password_confirm.setEnabled(false);
+            progress.setVisibility(View.VISIBLE);
 
-            if (contentFieldsIsValid()) {
-                buttonNextEnabled(false);
-
-                KeyboardToggleHelper.toggle(getActivity());
-                et_password_confirm.setEnabled(false);
-                tv_terms.setEnabled(false);
-                checkBox.setEnabled(false);
-                //progress.setVisibility(View.VISIBLE);
-
-                String dados = "Nome completo: " + name + " Apelido: " + nickname + " E-mail: " + email + " Telefone: " + phone + " Senha: " + password;
-                ToastHelper.alert(dados, getActivity());
-            }
+            user = registerUser();
+            presenter.callDashboard(user, checkBox);
         }
     };
 
-    private boolean contentFieldsIsValid() {
-        if (passwordIsEmpty()) {
-            il_password_confirm.setError(getString(R.string.empty_password_confirm));
-            return false;
-        }
+    private User registerUser() {
+        Bundle args = getArguments();
 
-        if (notIsSamePassword()) {
-            il_password_confirm.setError(getString(R.string.invalid_password_confirm));
-            return false;
+        if (args != null) {
+            user.setName(args.getString("name"));
+            user.setNickname(args.getString("nickname"));
+            user.setEmail(args.getString("email"));
+            user.setPhone(args.getString("phone"));
+            user.setPassword(args.getString("password"));
+            user.setPasswordConfirm(et_password_confirm.getText().toString());
         }
-
-        if (notIsChecked()) {
-            ToastHelper.alert(getResources().getString(R.string.error_accept), getActivity());
-            return false;
-        }
-        return true;
+        return user;
     }
 
-    private boolean passwordIsEmpty() {
-        return ValidatorHelper.isEmpty(et_password_confirm.getText().toString());
+    private void cleanErrorMessageFields() {
+        il_password_confirm.setError(null);
+        il_password_confirm.setErrorEnabled(false);
     }
 
-    private boolean notIsSamePassword() {
-        return !et_password_confirm.getText().toString().equals(password);
+    @Override
+    public void passwordIsEmpty() {
+        il_password_confirm.setError(getString(R.string.empty_password_confirm));
     }
 
-    private boolean notIsChecked() {
-        return !checkBox.isChecked();
+    @Override
+    public void notIsSamePassword() {
+        il_password_confirm.setError(getString(R.string.invalid_password_confirm));
+    }
+
+    @Override
+    public void notIsChecked() {
+        ToastHelper.alert(getResources().getString(R.string.error_accept), getActivity());
+    }
+
+    @Override
+    public void onFailure() {
+        // Mostra o teclado
+        KeyboardToggleHelper.toggle(getActivity());
+
+        buttonNextEnabled(true);
+        et_password_confirm.setEnabled(true);
+        progress.setVisibility(View.GONE);
+
+        ToastHelper.alert(getResources().getString(R.string.response_error), getActivity());
+    }
+
+    @Override
+    public void errorRegister() {
+        ToastHelper.alert("Erro ao se cadastrar, tente novamente mais tarde", getActivity());
+    }
+
+    @Override
+    public void openDashboard(User user) {
+        KeyboardToggleHelper.toggle(getActivity());
+
+        buttonNextEnabled(false);
+        et_password_confirm.setEnabled(false);
+        tv_terms.setEnabled(false);
+        checkBox.setEnabled(false);
     }
 
     private void buttonNextEnabled(Boolean enabled) {
         btn_next.setEnabled(enabled);
     }
 
-    private void cleanErrorMessageFields() {
-        il_password_confirm.setError(null);
-        il_password_confirm.setErrorEnabled(false);
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

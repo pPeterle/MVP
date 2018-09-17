@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +14,22 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.helper.ValidatorHelper;
 
-public class NameRegisterFragment extends Fragment {
+public class NameRegisterFragment extends Fragment implements NameRegisterContract.NameRegisterView {
     private TextInputEditText et_name;
     private TextInputLayout il_name;
     private ImageButton btn_next;
+
+    private NameRegisterContract.NameRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new NameRegisterPresenter(this);
+        }
+    }
 
     @Nullable
     @Override
@@ -45,42 +56,38 @@ public class NameRegisterFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                btn_next.setEnabled(false);
-
-                String name = et_name.getText().toString().trim();
-
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name.substring(0,1).toUpperCase() + name.substring(1));
-
-                FragmentHelper.load(new NicknameRegisterFragment(), true, bundle, getActivity());
-            }
+            presenter.callNicknameRegister(et_name.getText().toString().trim());
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (nameIsEmpty()) {
-            il_name.setError(getString(R.string.empty_name));
-            return false;
-        }
-
-        if (notIsFullname(et_name.getText().toString().trim())) {
-            il_name.setError(getString(R.string.empty_name));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean nameIsEmpty() {
-        return ValidatorHelper.isEmpty(et_name.getText().toString().trim());
-    }
-
-    private boolean notIsFullname(String string) {
-        return !string.contains(" ");
-    }
 
     private void cleanErrorMessageFields() {
         il_name.setError(null);
         il_name.setErrorEnabled(false);
+    }
+
+    @Override
+    public void nameIsEmpty() {
+        il_name.setError(getString(R.string.empty_name));
+    }
+
+    @Override
+    public void notIsFullname() {
+        il_name.setError(getString(R.string.empty_name));
+    }
+
+    @Override
+    public void openNicknameRegister(String name) {
+        btn_next.setEnabled(false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name.substring(0,1).toUpperCase() + name.substring(1));
+
+        FragmentHelper.load(new NicknameRegisterFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,9 +15,8 @@ import android.widget.TextView;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.helper.ValidatorHelper;
 
-public class NicknameRegisterFragment extends Fragment {
+public class NicknameRegisterFragment extends Fragment implements NicknameRegisterContract.NicknameRegisterView {
     public Bundle args;
     public TextView tv_firstname;
     public String name;
@@ -24,6 +24,17 @@ public class NicknameRegisterFragment extends Fragment {
     private TextInputEditText et_nickname;
     private TextInputLayout il_nickname;
     private ImageButton btn_next;
+
+    private NicknameRegisterContract.NicknameRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new NicknameRegisterPresenter(this);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,33 +78,35 @@ public class NicknameRegisterFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                btn_next.setEnabled(false);
-
-                String nickname = et_nickname.getText().toString().trim();
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                bundle.putString("nickname", nickname.substring(0,1).toUpperCase() + nickname.substring(1));
-
-                FragmentHelper.load(new EmailRegisterFragment(), true, bundle, getActivity());
-            }
+            presenter.callEmailRegister(et_nickname.getText().toString().trim());
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (nicknameIsEmpty()) {
-            il_nickname.setError(getString(R.string.empty_nickname));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean nicknameIsEmpty() {
-        return ValidatorHelper.isEmpty(et_nickname.getText().toString().trim());
-    }
 
     private void cleanErrorMessageFields() {
         il_nickname.setError(null);
         il_nickname.setErrorEnabled(false);
+    }
+
+    @Override
+    public void nicknameIsEmpty() {
+        il_nickname.setError(getString(R.string.empty_nickname));
+    }
+
+    @Override
+    public void openEmailRegister(String nickname) {
+        btn_next.setEnabled(false);
+
+        //String nickname = et_nickname.getText().toString().trim();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("nickname", nickname.substring(0,1).toUpperCase() + nickname.substring(1));
+
+        FragmentHelper.load(new EmailRegisterFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

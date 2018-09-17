@@ -42,7 +42,7 @@ import app.mvp.retrofit.Config;
 import app.mvp.service.EstablishmentService;
 import app.mvp.session.Session;
 import app.mvp.ui.activity.home.HomeActivity;
-import app.mvp.ui.activity.profile.ProfileDashboardActivity;
+import app.mvp.ui.activity.profile.ProfileActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -244,7 +244,7 @@ public class DashboardActivity extends AppCompatActivity {
     private View.OnClickListener profile = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            intent = new Intent(DashboardActivity.this, ProfileDashboardActivity.class);
+            intent = new Intent(DashboardActivity.this, ProfileActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.right_to_left, R.anim.stable);
         }

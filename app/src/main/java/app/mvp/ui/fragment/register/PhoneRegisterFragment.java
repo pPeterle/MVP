@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,15 +15,25 @@ import android.widget.ImageButton;
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
-import app.mvp.helper.ValidatorHelper;
 
-public class PhoneRegisterFragment extends Fragment {
+public class PhoneRegisterFragment extends Fragment implements PhoneRegisterContract.PhoneRegisterView {
     public Bundle args;
     public String name, nickname, email;
 
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
+
+    private PhoneRegisterContract.PhoneRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new PhoneRegisterPresenter(this);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,34 +75,36 @@ public class PhoneRegisterFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                btn_next.setEnabled(false);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                bundle.putString("nickname", nickname);
-                bundle.putString("email", email);
-                bundle.putString("phone", et_phone.getText().toString());
-
-                FragmentHelper.load(new PasswordRegisterFragment(), true, bundle, getActivity());
-            }
+            presenter.callPasswordRegister(et_phone.getText().toString());
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (phoneIsEmpty()) {
-            il_phone.setError(getString(R.string.empty_phone));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean phoneIsEmpty() {
-        return ValidatorHelper.isEmpty(et_phone.getText().toString());
-    }
 
     private void cleanErrorMessageFields() {
         il_phone.setError(null);
         il_phone.setErrorEnabled(false);
+    }
+
+    @Override
+    public void phoneIsEmpty() {
+        il_phone.setError(getString(R.string.empty_phone));
+    }
+
+    @Override
+    public void openPasswordRegister(String phone) {
+        btn_next.setEnabled(false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("nickname", nickname);
+        bundle.putString("email", email);
+        bundle.putString("phone", phone);
+
+        FragmentHelper.load(new PasswordRegisterFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

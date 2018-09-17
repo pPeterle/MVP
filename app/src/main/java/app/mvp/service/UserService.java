@@ -8,5 +8,5 @@ import retrofit2.http.POST;
 
 public interface UserService {
     @POST("register")
-    Call<Response> register(@Body User user);
+    Call<User> register(@Body User user);
 }

@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,15 +14,25 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.helper.ValidatorHelper;
 
-public class EmailRegisterFragment extends Fragment {
+public class EmailRegisterFragment extends Fragment implements EmailRegisterContract.EmailRegisterView {
     public Bundle args;
     public String name, nickname;
 
     private TextInputEditText et_email;
     private TextInputLayout il_email;
     private ImageButton btn_next;
+
+    private EmailRegisterContract.EmailRegisterPresenter presenter;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new EmailRegisterPresenter(this);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,42 +71,40 @@ public class EmailRegisterFragment extends Fragment {
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            if (contentFieldsIsValid()) {
-                btn_next.setEnabled(false);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                bundle.putString("nickname", nickname);
-                bundle.putString("email", et_email.getText().toString());
-
-                FragmentHelper.load(new PhoneRegisterFragment(), true, bundle, getActivity());
-            }
+            presenter.callPhoneRegister(et_email.getText().toString());
         }
     };
-
-    private boolean contentFieldsIsValid() {
-        if (emailIsEmpty()) {
-            il_email.setError(getString(R.string.empty_email));
-            return false;
-        }
-
-        if (notIsEmail()) {
-            il_email.setError(getString(R.string.invalid_email));
-            return false;
-        }
-        return true;
-    }
-
-    private boolean emailIsEmpty() {
-        return ValidatorHelper.isEmpty(et_email.getText().toString());
-    }
-
-    private boolean notIsEmail() {
-        return !ValidatorHelper.isEmail(et_email.getText().toString());
-    }
 
     private void cleanErrorMessageFields() {
         il_email.setError(null);
         il_email.setErrorEnabled(false);
+    }
+
+    @Override
+    public void emailIsEmpty() {
+        il_email.setError(getString(R.string.empty_email));
+    }
+
+    @Override
+    public void notIsEmail() {
+        il_email.setError(getString(R.string.invalid_email));
+    }
+
+    @Override
+    public void openPhoneRegister(String email) {
+        btn_next.setEnabled(false);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("nickname", nickname);
+        bundle.putString("email", email);
+
+        FragmentHelper.load(new PhoneRegisterFragment(), true, bundle, getActivity());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

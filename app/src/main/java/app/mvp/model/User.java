@@ -16,6 +16,7 @@ public class User {
     private String phone;
     private String email;
     private String password;
+    private String password_confirm;
     private String token;
 
     public String getUUID() {
@@ -136,6 +137,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return password_confirm;
+    }
+
+    public void setPasswordConfirm(String password_confirm) {
+        this.password_confirm = password_confirm;
     }
 
     public String getToken() {

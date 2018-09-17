@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,16 +36,21 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (presenter == null) {
+            presenter = new PasswordLoginPresenter(this);
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         handler = new Handler();
         session = new Session(getActivity());
         user = new User();
-
-        if (presenter == null) {
-            presenter = new PasswordLoginPresenter(this);
-        }
     }
 
     @Nullable
@@ -77,8 +83,8 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
 
             cleanErrorMessageFields();
             buttonNextEnabled(false);
-            progress.setVisibility(View.VISIBLE);
             et_password.setEnabled(false);
+            progress.setVisibility(View.VISIBLE);
 
             user = loginUser();
             presenter.callLoginProcess(user);
