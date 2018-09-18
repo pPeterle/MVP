@@ -1,7 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.widget.CheckBox;
-
 import app.mvp.model.User;
 
 public interface PasswordConfirmRegisterContract {
@@ -24,7 +22,7 @@ public interface PasswordConfirmRegisterContract {
 
     interface PasswordConfirmRegisterPresenter {
 
-        void callDashboard(User user, CheckBox checkBox);
+        void callDashboard(User user);
 
         void onPause();
 

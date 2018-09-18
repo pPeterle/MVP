@@ -18,6 +18,7 @@ public class User {
     private String password;
     private String password_confirm;
     private String token;
+    private Boolean checkBox;
 
     public String getUUID() {
         return uuid;
@@ -153,5 +154,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = "Bearer " + token;
+    }
+
+    public Boolean getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(Boolean checkBox) {
+        this.checkBox = checkBox;
     }
 }

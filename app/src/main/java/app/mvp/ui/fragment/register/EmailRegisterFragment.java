@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +13,10 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
+import app.mvp.model.User;
 
 public class EmailRegisterFragment extends Fragment implements EmailRegisterContract.EmailRegisterView {
-    public Bundle args;
-    public String name, nickname;
-
+    private User user;
     private TextInputEditText et_email;
     private TextInputLayout il_email;
     private ImageButton btn_next;
@@ -26,23 +24,14 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
     private EmailRegisterContract.EmailRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (presenter == null) {
-            presenter = new EmailRegisterPresenter(this);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        args = getArguments();
+        user = new User();
+        user = dataUser();
 
-        if (args != null) {
-            name = args.getString("name");
-            nickname = args.getString("nickname");
+        if (presenter == null) {
+            presenter = new EmailRegisterPresenter(this);
         }
     }
 
@@ -75,6 +64,16 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
         }
     };
 
+    private User dataUser() {
+        Bundle args = getArguments();
+
+        if (args != null) {
+            user.setName(args.getString("name"));
+            user.setNickname(args.getString("nickname"));
+        }
+        return user;
+    }
+
     private void cleanErrorMessageFields() {
         il_email.setError(null);
         il_email.setErrorEnabled(false);
@@ -95,8 +94,8 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
         btn_next.setEnabled(false);
 
         Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        bundle.putString("nickname", nickname);
+        bundle.putString("name", user.getName());
+        bundle.putString("nickname", user.getNickname());
         bundle.putString("email", email);
 
         FragmentHelper.load(new PhoneRegisterFragment(), true, bundle, getActivity());

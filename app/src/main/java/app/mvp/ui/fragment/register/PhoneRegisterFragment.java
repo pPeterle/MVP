@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,11 +14,10 @@ import android.widget.ImageButton;
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
+import app.mvp.model.User;
 
 public class PhoneRegisterFragment extends Fragment implements PhoneRegisterContract.PhoneRegisterView {
-    public Bundle args;
-    public String name, nickname, email;
-
+    private User user;
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
@@ -27,24 +25,14 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
     private PhoneRegisterContract.PhoneRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (presenter == null) {
-            presenter = new PhoneRegisterPresenter(this);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        args = getArguments();
+        user = new User();
+        user = dataUser();
 
-        if (args != null) {
-            name = args.getString("name");
-            nickname = args.getString("nickname");
-            email = args.getString("email");
+        if (presenter == null) {
+            presenter = new PhoneRegisterPresenter(this);
         }
     }
 
@@ -79,6 +67,17 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
         }
     };
 
+    private User dataUser() {
+        Bundle args = getArguments();
+
+        if (args != null) {
+            user.setName(args.getString("name"));
+            user.setNickname(args.getString("nickname"));
+            user.setEmail(args.getString("email"));
+        }
+        return user;
+    }
+
     private void cleanErrorMessageFields() {
         il_phone.setError(null);
         il_phone.setErrorEnabled(false);
@@ -90,13 +89,18 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
     }
 
     @Override
+    public void notIsPhone() {
+        il_phone.setError(getString(R.string.invalid_phone_length));
+    }
+
+    @Override
     public void openPasswordRegister(String phone) {
         btn_next.setEnabled(false);
 
         Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        bundle.putString("nickname", nickname);
-        bundle.putString("email", email);
+        bundle.putString("name", user.getName());
+        bundle.putString("nickname", user.getNickname());
+        bundle.putString("email", user.getEmail());
         bundle.putString("phone", phone);
 
         FragmentHelper.load(new PasswordRegisterFragment(), true, bundle, getActivity());

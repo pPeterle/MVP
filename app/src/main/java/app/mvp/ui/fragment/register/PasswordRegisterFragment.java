@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,11 +13,10 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
+import app.mvp.model.User;
 
 public class PasswordRegisterFragment extends Fragment implements PasswordRegisterContract.PasswordRegisterView {
-    public Bundle args;
-    public String name, nickname, email, phone;
-
+    private User user;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private ImageButton btn_next;
@@ -26,25 +24,14 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
     private PasswordRegisterContract.PasswordRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (presenter == null) {
-            presenter = new PasswordRegisterPresenter(this);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        args = getArguments();
+        user = new User();
+        user = dataUser();
 
-        if (args != null) {
-            name = args.getString("name");
-            nickname = args.getString("nickname");
-            email = args.getString("email");
-            phone = args.getString("phone");
+        if (presenter == null) {
+            presenter = new PasswordRegisterPresenter(this);
         }
     }
 
@@ -77,6 +64,18 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
         }
     };
 
+    private User dataUser() {
+        Bundle args = getArguments();
+
+        if (args != null) {
+            user.setName(args.getString("name"));
+            user.setNickname(args.getString("nickname"));
+            user.setEmail(args.getString("email"));
+            user.setPhone(args.getString("phone"));
+        }
+        return user;
+    }
+
     private void cleanErrorMessageFields() {
         il_password.setError(null);
         il_password.setErrorEnabled(false);
@@ -97,10 +96,10 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
         btn_next.setEnabled(false);
 
         Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        bundle.putString("nickname", nickname);
-        bundle.putString("email", email);
-        bundle.putString("phone", phone);
+        bundle.putString("name", user.getName());
+        bundle.putString("nickname", user.getNickname());
+        bundle.putString("email", user.getEmail());
+        bundle.putString("phone", user.getPhone());
         bundle.putString("password", password);
 
         FragmentHelper.load(new PasswordConfirmRegisterFragment(), true, bundle, getActivity());

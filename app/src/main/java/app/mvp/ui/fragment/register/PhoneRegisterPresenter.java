@@ -21,11 +21,20 @@ public class PhoneRegisterPresenter implements PhoneRegisterContract.PhoneRegist
             view.phoneIsEmpty();
             return false;
         }
+
+        if (notIsPhone(phone)) {
+            view.notIsPhone();
+            return false;
+        }
         return true;
     }
 
     private boolean phoneIsEmpty(String phone) {
-        return ValidatorHelper.isPhone(phone);
+        return ValidatorHelper.isEmpty(phone);
+    }
+
+    private boolean notIsPhone(String phone) {
+        return !ValidatorHelper.isPhone(phone);
     }
 
     @Override

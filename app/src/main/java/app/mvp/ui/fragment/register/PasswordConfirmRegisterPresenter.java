@@ -1,8 +1,10 @@
 package app.mvp.ui.fragment.register;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.CheckBox;
 
+import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
@@ -21,8 +23,9 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
     }
 
     @Override
-    public void callDashboard(User user, CheckBox checkBox) {
-        if (contentFieldsIsValid(user, checkBox)) {
+    public void callDashboard(User user) {
+
+        if (contentFieldsIsValid(user)) {
 
             response = userService.register(user);
             response.enqueue(new Callback<User>() {
@@ -50,7 +53,7 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
         }
     }
 
-    private boolean contentFieldsIsValid(User user, CheckBox checkBox) {
+    private boolean contentFieldsIsValid(User user) {
         if (passwordIsEmpty(user.getPasswordConfirm())) {
             view.passwordIsEmpty();
             return false;
@@ -61,7 +64,7 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
             return false;
         }
 
-        if (notIsChecked(checkBox)) {
+        if (!user.getCheckBox()) {
             view.notIsChecked();
             return false;
         }
@@ -74,10 +77,6 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
 
     private boolean notIsSamePassword(String password, String passwordConfirm) {
         return !passwordConfirm.equals(password);
-    }
-
-    private boolean notIsChecked(CheckBox checkBox) {
-        return !checkBox.isChecked();
     }
 
     @Override

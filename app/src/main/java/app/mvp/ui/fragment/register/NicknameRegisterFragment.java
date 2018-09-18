@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +14,13 @@ import android.widget.TextView;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
+import app.mvp.model.User;
 
 public class NicknameRegisterFragment extends Fragment implements NicknameRegisterContract.NicknameRegisterView {
-    public Bundle args;
     public TextView tv_firstname;
     public String name;
 
+    private User user;
     private TextInputEditText et_nickname;
     private TextInputLayout il_nickname;
     private ImageButton btn_next;
@@ -28,19 +28,15 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
     private NicknameRegisterContract.NicknameRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        user = new User();
+        user = dataUser();
 
         if (presenter == null) {
             presenter = new NicknameRegisterPresenter(this);
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        args = getArguments();
     }
 
     @Nullable
@@ -53,11 +49,8 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (args != null) {
-            tv_firstname = view.findViewById(R.id.tv_firstname);
-            tv_firstname.setText(firstWord(args.getString("name")));
-            name = args.getString("name");
-        }
+        tv_firstname = view.findViewById(R.id.tv_firstname);
+        tv_firstname.setText(firstWord(user.getName()));
 
         et_nickname = view.findViewById(R.id.et_nickname);
         il_nickname = view.findViewById(R.id.il_nickname);
@@ -82,6 +75,15 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
         }
     };
 
+    private User dataUser() {
+        Bundle args = getArguments();
+
+        if (args != null) {
+            user.setName(args.getString("name"));
+        }
+        return user;
+    }
+
     private void cleanErrorMessageFields() {
         il_nickname.setError(null);
         il_nickname.setErrorEnabled(false);
@@ -96,9 +98,8 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
     public void openEmailRegister(String nickname) {
         btn_next.setEnabled(false);
 
-        //String nickname = et_nickname.getText().toString().trim();
         Bundle bundle = new Bundle();
-        bundle.putString("name", name);
+        bundle.putString("name", user.getName());
         bundle.putString("nickname", nickname.substring(0,1).toUpperCase() + nickname.substring(1));
 
         FragmentHelper.load(new EmailRegisterFragment(), true, bundle, getActivity());

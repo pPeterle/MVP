@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,19 +35,14 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
     private PasswordConfirmRegisterContract.PasswordConfirmRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (presenter == null) {
-            presenter = new PasswordConfirmRegisterPresenter(this);
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         user = new User();
+
+        if (presenter == null) {
+            presenter = new PasswordConfirmRegisterPresenter(this);
+        }
     }
 
     @Nullable
@@ -104,7 +98,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
             progress.setVisibility(View.VISIBLE);
 
             user = registerUser();
-            presenter.callDashboard(user, checkBox);
+            presenter.callDashboard(user);
         }
     };
 
@@ -118,6 +112,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
             user.setPhone(args.getString("phone"));
             user.setPassword(args.getString("password"));
             user.setPasswordConfirm(et_password_confirm.getText().toString());
+            user.setCheckBox(checkBox.isChecked());
         }
         return user;
     }

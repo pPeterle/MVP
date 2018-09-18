@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.register;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,8 +22,8 @@ public class NameRegisterFragment extends Fragment implements NameRegisterContra
     private NameRegisterContract.NameRegisterPresenter presenter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         if (presenter == null) {
             presenter = new NameRegisterPresenter(this);

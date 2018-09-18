@@ -6,6 +6,8 @@ public interface PhoneRegisterContract {
 
         void phoneIsEmpty();
 
+        void notIsPhone();
+
         void openPasswordRegister(String phone);
 
     }
