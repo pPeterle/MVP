@@ -32,7 +32,7 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
         super.onCreate(savedInstanceState);
 
         user = new User();
-        user = dataUser();
+        user = registerUser();
 
         if (presenter == null) {
             presenter = new NicknameRegisterPresenter(this);
@@ -75,7 +75,7 @@ public class NicknameRegisterFragment extends Fragment implements NicknameRegist
         }
     };
 
-    private User dataUser() {
+    private User registerUser() {
         Bundle args = getArguments();
 
         if (args != null) {

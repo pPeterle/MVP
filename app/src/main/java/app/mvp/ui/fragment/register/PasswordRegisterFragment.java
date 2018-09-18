@@ -28,7 +28,7 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
         super.onCreate(savedInstanceState);
 
         user = new User();
-        user = dataUser();
+        user = registerUser();
 
         if (presenter == null) {
             presenter = new PasswordRegisterPresenter(this);
@@ -64,7 +64,7 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
         }
     };
 
-    private User dataUser() {
+    private User registerUser() {
         Bundle args = getArguments();
 
         if (args != null) {

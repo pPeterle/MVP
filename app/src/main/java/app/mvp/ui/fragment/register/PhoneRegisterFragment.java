@@ -29,7 +29,7 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
         super.onCreate(savedInstanceState);
 
         user = new User();
-        user = dataUser();
+        user = registerUser();
 
         if (presenter == null) {
             presenter = new PhoneRegisterPresenter(this);
@@ -67,7 +67,7 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
         }
     };
 
-    private User dataUser() {
+    private User registerUser() {
         Bundle args = getArguments();
 
         if (args != null) {

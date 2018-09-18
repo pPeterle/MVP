@@ -28,7 +28,7 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
         super.onCreate(savedInstanceState);
 
         user = new User();
-        user = dataUser();
+        user = registerUser();
 
         if (presenter == null) {
             presenter = new EmailRegisterPresenter(this);
@@ -64,7 +64,7 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
         }
     };
 
-    private User dataUser() {
+    private User registerUser() {
         Bundle args = getArguments();
 
         if (args != null) {

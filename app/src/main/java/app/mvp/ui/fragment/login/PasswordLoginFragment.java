@@ -89,8 +89,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         Bundle args = getArguments();
 
         if (args != null) {
-            String phone = args.getString("phone");
-            user.setPhone(phone);
+            user.setPhone(args.getString("phone"));
             user.setPassword(et_password.getText().toString());
         }
         return user;
