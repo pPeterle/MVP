@@ -19,10 +19,13 @@ import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
+import app.mvp.session.Session;
+import app.mvp.ui.activity.splash.SplashActivity;
 import app.mvp.ui.activity.terms.TermsActivity;
 
 public class PasswordConfirmRegisterFragment extends Fragment implements PasswordConfirmRegisterContract.PasswordConfirmRegisterView {
     public Intent intent;
+    public Session session;
     public TextView tv_terms;
     public CheckBox checkBox;
     public ProgressBar progress;
@@ -38,6 +41,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        session = new Session(getActivity());
         user = new User();
 
         if (presenter == null) {
@@ -122,6 +126,10 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
         il_password_confirm.setErrorEnabled(false);
     }
 
+    private void buttonNextEnabled(Boolean enabled) {
+        btn_next.setEnabled(enabled);
+    }
+
     @Override
     public void passwordIsEmpty() {
         il_password_confirm.setError(getString(R.string.empty_password_confirm));
@@ -155,12 +163,19 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
     }
 
     @Override
-    public void openDashboard(User user) {
-        ToastHelper.alert("ABRIU O DASHBOARD", getActivity());
-    }
+    public void openDashboard(User resp) {
+        progress.setVisibility(View.GONE);
 
-    private void buttonNextEnabled(Boolean enabled) {
-        btn_next.setEnabled(enabled);
+        // Grava os dados retornados do Presenter, na sessão
+        session.setLogin(resp);
+
+        intent = new Intent(getActivity(), SplashActivity.class);
+
+        if (getActivity() != null) {
+            getActivity().startActivity(intent);
+            getActivity().finish();
+            getActivity().overridePendingTransition(R.anim.fade_in, 0);
+        }
     }
 
     @Override

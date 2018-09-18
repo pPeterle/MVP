@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_home"
-    android:backgroundTint="#60FF5722"
+    android:backgroundTint="#45FF5722"
     android:backgroundTintMode="src_over"
     android:fitsSystemWindows="true"
     tools:context=".ui.activity.home.HomeActivity">

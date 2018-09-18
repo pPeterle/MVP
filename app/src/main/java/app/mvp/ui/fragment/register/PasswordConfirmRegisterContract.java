@@ -16,7 +16,7 @@ public interface PasswordConfirmRegisterContract {
 
         void errorRegister();
 
-        void openDashboard(User user);
+        void openDashboard(User resp);
 
     }
 

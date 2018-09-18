@@ -1,10 +1,7 @@
 package app.mvp.ui.fragment.register;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.CheckBox;
 
-import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
