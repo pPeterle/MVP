@@ -43,7 +43,9 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
                 @Override
                 public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                    view.onFailure();
+                    if (!call.isCanceled()) {
+                        view.onFailure();
+                    }
                 }
             });
         }
