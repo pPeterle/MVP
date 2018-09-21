@@ -14,7 +14,7 @@ public interface PasswordLoginContract {
 
         void errorLogin();
 
-        void openDashboard(User resp);
+        void openDashboard();
 
     }
 

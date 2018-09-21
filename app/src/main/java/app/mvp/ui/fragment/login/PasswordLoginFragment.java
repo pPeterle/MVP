@@ -1,5 +1,7 @@
 package app.mvp.ui.fragment.login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,19 +20,19 @@ import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
-import app.mvp.session.Session;
 import app.mvp.ui.activity.splash.SplashActivity;
 
 public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Handler handler;
     public Intent intent;
-    public Session session;
     public ProgressBar progress;
 
     private User user;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private ImageButton btn_next;
+
+    Activity context;
 
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
@@ -39,7 +41,6 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         super.onCreate(savedInstanceState);
 
         handler = new Handler();
-        session = new Session(getActivity());
         user = new User();
 
         if (presenter == null) {
@@ -132,11 +133,8 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     }
 
     @Override
-    public void openDashboard(User resp) {
+    public void openDashboard() {
         progress.setVisibility(View.GONE);
-
-        // Grava os dados retornados do Presenter, na sessão
-        session.setLogin(resp);
 
         intent = new Intent(getActivity(), SplashActivity.class);
 
