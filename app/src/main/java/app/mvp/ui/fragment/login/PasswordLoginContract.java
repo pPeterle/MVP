@@ -10,17 +10,17 @@ public interface PasswordLoginContract {
 
         void notIsPassword();
 
-        void onFailure();
+        void onFailure(); // Quando ocorre um erro na requisição do Retrofit2
 
         void errorLogin();
 
-        void openDashboard();
+        void openDashboard(); // Abre o Dashboard do usuário logado
 
     }
 
     interface PasswordLoginPresenter {
 
-        void callLoginProcess(User user);
+        void callLoginProcess(User user); // Faz o login
 
         void onPause();
 

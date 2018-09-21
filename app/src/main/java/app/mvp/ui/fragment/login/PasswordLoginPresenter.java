@@ -1,5 +1,7 @@
 package app.mvp.ui.fragment.login;
 
+import android.support.annotation.NonNull;
+
 import java.io.IOException;
 
 import app.mvp.helper.ValidatorHelper;
@@ -15,13 +17,14 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     private LoginService loginService;
     private Call<User> response;
 
+    // não finalizado
     private Session session;
 
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
         this.view = view;
         this.loginService = Config.getLoginService();
 
-        //session = new Session();
+        //this.session = new Session();
     }
 
     @Override
@@ -32,14 +35,15 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
             response.enqueue(new Callback<User>() {
 
                 @Override
-                public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+                public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
                     final User resp = response.body();
 
                     if (resp != null) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                // Grava os dados retornados do Presenter, na sessão
-                                session.setLogin(resp);
+                                // Grava os dados retornados, na sessão (SharedPreferences)
+                                //session.setLogin(resp);
+
                                 view.openDashboard();
                             }
                         }
@@ -49,7 +53,8 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
+                public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                    // Tentativa em substituir o @NonNull do Retrofit (não finalizado)
                     if (call instanceof IOException || t instanceof IOException) throw new NullArgumentException();
 
                     if (!call.isCanceled()) {
@@ -60,6 +65,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
         }
     }
 
+    // Tentativa em substituir o @NonNull do Retrofit (não finalizado)
     class NullArgumentException extends IllegalArgumentException {
 
         public NullArgumentException() {

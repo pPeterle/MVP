@@ -1,7 +1,5 @@
 package app.mvp.ui.fragment.login;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,14 +30,13 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private TextInputLayout il_password;
     private ImageButton btn_next;
 
-    Activity context;
-
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Acho que preciso melhorar isso
         handler = new Handler();
         user = new User();
 
@@ -73,7 +70,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private View.OnClickListener next = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // Esconde o teclado
+            // Esconde o teclado quando clico em logar
             KeyboardToggleHelper.toggle(getActivity());
 
             cleanErrorMessageFields();
@@ -117,7 +114,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
 
     @Override
     public void onFailure() {
-        // Mostra o teclado
+        // Mostra o teclado quando ocorre um erro na requisição do Retrofit
         KeyboardToggleHelper.toggle(getActivity());
 
         buttonNextEnabled(true);
