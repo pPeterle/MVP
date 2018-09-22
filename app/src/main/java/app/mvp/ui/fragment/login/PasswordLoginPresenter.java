@@ -17,14 +17,16 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     private LoginService loginService;
     private Call<User> response;
 
+    // SharedPreferences
     private Session session;
 
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
         this.view = view;
         this.loginService = Config.getLoginService();
 
-        // Acho que preciso melhorar isso
-        //this.session = new Session();
+        // Sou obrigado a passar o contexto
+        // exemplo:
+        // this.session = new Session(context);
     }
 
     @Override
