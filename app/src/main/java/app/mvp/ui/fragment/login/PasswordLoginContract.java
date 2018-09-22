@@ -10,7 +10,7 @@ public interface PasswordLoginContract {
 
         void notIsPassword();
 
-        void onFailure(); // Quando ocorre um erro na requisição do Retrofit2
+        void onFailure(); // Quando ocorre um erro na requisição do Retrofit
 
         void errorLogin();
 
