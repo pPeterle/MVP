@@ -1,6 +1,5 @@
 package app.mvp.ui.fragment.login;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
@@ -15,18 +14,15 @@ import retrofit2.Callback;
 
 public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLoginPresenter {
     private PasswordLoginContract.PasswordLoginView view;
-    private LoginService loginService;
-    private Call<User> response;
 
-    // SharedPreferences
+    private Call<User> response;
+    private LoginService loginService;
     private Session session;
 
-    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Context context) {
+    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Session session) {
         this.view = view;
         this.loginService = Config.getLoginService();
-
-        // Sou obrigado a passar o contexto, exemplo:
-        // this.session = new Session(context);
+        this.session = session;
     }
 
     @Override
@@ -43,9 +39,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                     if (resp != null) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                // Grava os dados retornados, na sessão
-                                // session.setLogin(resp);
-
+                                session.setLogin(resp);
                                 view.openDashboard();
                             }
                         }

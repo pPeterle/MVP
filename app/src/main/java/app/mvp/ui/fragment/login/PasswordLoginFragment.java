@@ -1,9 +1,7 @@
 package app.mvp.ui.fragment.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -15,23 +13,23 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import app.mvp.App;
 import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
+import app.mvp.session.Session;
 import app.mvp.ui.activity.splash.SplashActivity;
 
 public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
-    public Handler handler;
     public Intent intent;
     public ProgressBar progress;
 
-    private User user;
+    private ImageButton btn_next;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
-    private ImageButton btn_next;
+    private User user;
 
-    Context context;
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
@@ -39,11 +37,12 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         super.onCreate(savedInstanceState);
 
         // Acho que preciso melhorar isso
-        handler = new Handler();
         user = new User();
 
+        Session session = ((App) getActivity().getApplication()).getSession();
+
         if (presenter == null) {
-            presenter = new PasswordLoginPresenter(this, context);
+            presenter = new PasswordLoginPresenter(this, session);
         }
     }
 
