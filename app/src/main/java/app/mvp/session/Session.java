@@ -37,11 +37,11 @@ public class Session {
         editor.commit();
     }
 
-    public static String encrypt(String input) {
+    private static String encrypt(String input) {
         return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);
     }
 
-    public static String decrypt(String input) {
+    private static String decrypt(String input) {
         return new String(Base64.decode(input, Base64.DEFAULT));
     }
 }
