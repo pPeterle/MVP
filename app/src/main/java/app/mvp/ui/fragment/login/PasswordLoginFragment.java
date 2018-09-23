@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public ProgressBar progress;
 
     private ImageButton btn_next;
+    private Session session;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private User user;
@@ -39,7 +41,10 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         // Acho que preciso melhorar isso
         user = new User();
 
-        Session session = ((App) getActivity().getApplication()).getSession();
+        Activity activity = getActivity();
+        if (activity != null) {
+            session = ((App) activity.getApplication()).getSession();
+        }
 
         if (presenter == null) {
             presenter = new PasswordLoginPresenter(this, session);
