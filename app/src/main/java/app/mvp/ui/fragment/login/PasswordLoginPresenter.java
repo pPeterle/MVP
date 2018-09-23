@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
+import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
@@ -36,13 +37,9 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                 public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
                     final User resp = response.body();
 
-                    if (resp != null) {
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                session.setLogin(resp);
-                                view.openDashboard();
-                            }
-                        }
+                    if (ToastHelper.isValidaResponse(resp, response)) {
+                        session.setLogin(resp);
+                        view.openDashboard();
                     } else {
                         view.errorLogin();
                     }
