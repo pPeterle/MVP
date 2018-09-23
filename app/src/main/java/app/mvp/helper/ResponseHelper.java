@@ -1,0 +1,10 @@
+package app.mvp.helper;
+
+import app.mvp.model.User;
+import retrofit2.Response;
+
+public class ResponseHelper {
+    public static boolean isValidResponse(User resp, Response<User> response) {
+        return resp != null && response.body() != null;
+    }
+}
