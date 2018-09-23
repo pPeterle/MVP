@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private TextInputLayout il_password;
     private ImageButton btn_next;
 
+    Context context;
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
@@ -41,7 +43,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
         user = new User();
 
         if (presenter == null) {
-            presenter = new PasswordLoginPresenter(this);
+            presenter = new PasswordLoginPresenter(this, context);
         }
     }
 

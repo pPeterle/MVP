@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
@@ -20,12 +21,11 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     // SharedPreferences
     private Session session;
 
-    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view) {
+    PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Context context) {
         this.view = view;
         this.loginService = Config.getLoginService();
 
-        // Sou obrigado a passar o contexto
-        // exemplo:
+        // Sou obrigado a passar o contexto, exemplo:
         // this.session = new Session(context);
     }
 
@@ -43,8 +43,8 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                     if (resp != null) {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                // Grava os dados retornados, na sessão (SharedPreferences)
-                                //session.setLogin(resp);
+                                // Grava os dados retornados, na sessão
+                                // session.setLogin(resp);
 
                                 view.openDashboard();
                             }
