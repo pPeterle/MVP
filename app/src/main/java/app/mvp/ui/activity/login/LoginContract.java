@@ -9,6 +9,7 @@ public interface LoginContract {
         void openHome();
 
         void popBackStack();
+
     }
 
     interface LoginPresenter {
