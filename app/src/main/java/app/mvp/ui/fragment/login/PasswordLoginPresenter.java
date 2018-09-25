@@ -49,7 +49,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                 @Override
                 public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                     // Tentativa em substituir o @NonNull do Retrofit (não finalizado)
-                    // if (call instanceof IOException || t instanceof IOException) throw new NullArgumentException();
+                    //if (call instanceof IOException || t instanceof IOException) throw new NullArgumentException();
 
                     if (!call.isCanceled()) {
                         view.onFailure();
@@ -59,7 +59,6 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
         }
     }
 
-    // Tentativa em substituir o @NonNull do Retrofit (não finalizado)
     class NullArgumentException extends IllegalArgumentException {
 
         public NullArgumentException() {
