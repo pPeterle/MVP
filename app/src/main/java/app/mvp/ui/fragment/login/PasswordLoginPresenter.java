@@ -19,6 +19,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     private Call<User> response;
     private LoginService loginService;
+
     private Session session;
 
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Session session) {
@@ -40,6 +41,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
                     if (ResponseHelper.isValid(resp, response)) {
                         session.setLogin(resp);
+
                         view.openDashboard();
                     } else {
                         view.errorLogin();
