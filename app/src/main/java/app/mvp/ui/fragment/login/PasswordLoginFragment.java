@@ -36,19 +36,19 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Acho que preciso melhorar isso
-        user = new User();
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         LoginActivity activity = (LoginActivity) context;
         session = ((App) activity.getApplication()).getSession();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Acho que preciso melhorar isso
+        user = new User();
     }
 
     @Nullable
