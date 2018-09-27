@@ -10,7 +10,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLoginPresenter {
+
+    // View
     private PasswordLoginContract.PasswordLoginView view;
+
+    // Model ( EM CONSTRUÇÃO )
+    private PasswordLoginContract.PasswordLoginModel model;
 
     private Call<User> response;
     private LoginService loginService;
@@ -35,7 +40,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                     final User resp = response.body();
 
                     if (ResponseHelper.isValid(resp, response)) {
-                        session.setLogin(resp);
+                        model.gravar(resp); // session.setLogin(resp);
 
                         view.openDashboard();
                     } else {

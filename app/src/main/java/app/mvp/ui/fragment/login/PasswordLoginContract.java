@@ -4,6 +4,13 @@ import app.mvp.model.User;
 
 public interface PasswordLoginContract {
 
+    // Não finalizado
+    interface PasswordLoginModel {
+
+        void gravar(User resp);
+
+    }
+
     interface PasswordLoginView {
 
         void passwordIsEmpty();
