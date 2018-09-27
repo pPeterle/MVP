@@ -1,11 +1,6 @@
 package app.mvp.ui.fragment.login;
 
-import android.support.annotation.NonNull;
-
-import java.io.IOException;
-
 import app.mvp.helper.ResponseHelper;
-import app.mvp.helper.ToastHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
@@ -36,7 +31,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
             response.enqueue(new Callback<User>() {
 
                 @Override
-                public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
+                public void onResponse(Call<User> call, retrofit2.Response<User> response) {
                     final User resp = response.body();
 
                     if (ResponseHelper.isValid(resp, response)) {
@@ -49,22 +44,12 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                    // Tentativa em substituir o @NonNull do Retrofit (não finalizado)
-                    //if (call instanceof IOException || t instanceof IOException) throw new NullArgumentException();
-
+                public void onFailure(Call<User> call, Throwable t) {
                     if (!call.isCanceled()) {
                         view.onFailure();
                     }
                 }
             });
-        }
-    }
-
-    class NullArgumentException extends IllegalArgumentException {
-
-        public NullArgumentException() {
-            super("arg cannot be null");
         }
     }
 
