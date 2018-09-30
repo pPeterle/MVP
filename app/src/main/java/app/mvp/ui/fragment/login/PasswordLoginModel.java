@@ -1,5 +1,7 @@
 package app.mvp.ui.fragment.login;
 
+import android.support.annotation.NonNull;
+
 import app.mvp.helper.ResponseHelper;
 import app.mvp.model.User;
 import app.mvp.retrofit.Config;
@@ -23,7 +25,7 @@ public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginMo
         response.enqueue(new Callback<User>() {
 
             @Override
-            public void onResponse(Call<User> call, retrofit2.Response<User> response) {
+            public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
                 final User resp = response.body();
 
                 if (ResponseHelper.isValid(resp, response)) {
@@ -34,7 +36,7 @@ public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginMo
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                 if (!call.isCanceled()) {
                     presenter.errorRequest();
                 }
