@@ -6,7 +6,7 @@ public interface PasswordLoginContract {
 
     interface PasswordLoginModel {
 
-        // Responsável por fazer a requisição com Retrofit2
+        // Faz a requisição
         void request(User user);
 
         // Cancela a requisição
