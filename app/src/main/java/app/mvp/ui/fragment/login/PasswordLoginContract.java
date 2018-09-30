@@ -45,7 +45,7 @@ public interface PasswordLoginContract {
         // Salva os dados retornados do Model E manda a View abrir a Activity
         void openDashboard(User resp);
 
-        // Quando a requisição é cancelada
+        // O onPause da View, pede para o Presenter cancelar a requisição que está sendo feita pelo Model
         void onPause();
 
         void onDestroy();
