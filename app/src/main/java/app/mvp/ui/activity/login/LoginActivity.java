@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.ui.activity.home.HomeActivity;
-import app.mvp.ui.fragment.login.PhoneLoginFragment;
+import app.mvp.ui.fragment.login.PhoneLoginView;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.LoginView {
     private LoginContract.LoginPresenter presenter;
@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void initView() {
-        FragmentHelper.load(new PhoneLoginFragment(), true, new Bundle(), this);
+        FragmentHelper.load(new PhoneLoginView(), true, new Bundle(), this);
     }
 
     @Override

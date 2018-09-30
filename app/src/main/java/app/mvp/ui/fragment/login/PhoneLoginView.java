@@ -15,7 +15,7 @@ import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
 
-public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.PhoneLoginView {
+public class PhoneLoginView extends Fragment implements PhoneLoginContract.PhoneLoginView {
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
@@ -84,7 +84,7 @@ public class PhoneLoginFragment extends Fragment implements PhoneLoginContract.P
         Bundle bundle = new Bundle();
         bundle.putString("phone", et_phone.getText().toString());
 
-        FragmentHelper.load(new PasswordLoginFragment(), true, bundle, getActivity());
+        FragmentHelper.load(new PasswordLoginView(), true, bundle, getActivity());
     }
 
     @Override

@@ -23,7 +23,7 @@ import app.mvp.session.Session;
 import app.mvp.ui.activity.login.LoginActivity;
 import app.mvp.ui.activity.splash.SplashActivity;
 
-public class PasswordLoginFragment extends Fragment implements PasswordLoginContract.PasswordLoginView {
+public class PasswordLoginView extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Intent intent;
     public ProgressBar progress;
 
