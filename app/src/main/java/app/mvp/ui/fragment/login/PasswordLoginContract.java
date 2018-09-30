@@ -33,13 +33,13 @@ public interface PasswordLoginContract {
 
     interface PasswordLoginPresenter {
 
-        // O Presenter pede para o Model, fazer a requisição
+        // Pede para o Model fazer a requisição
         void callLoginProcess(User user);
 
-        // Pega o erro que o Presenter recebeu do Model
+        // Pega o erro que recebeu do Model
         void errorRequest();
 
-        // Pega o erro que o Presenter recebeu do Model
+        // Pega o erro que recebeu do Model
         void errorLogin();
 
         // Salva os dados retornados do Model E manda a View abrir a Activity
