@@ -9,7 +9,7 @@ public interface PasswordLoginContract {
         // Responsável por fazer a requisição com Retrofit2
         void request(User user);
 
-        // Quando a requisição é cancelada
+        // Cancela a requisição
         void onPause();
 
     }
