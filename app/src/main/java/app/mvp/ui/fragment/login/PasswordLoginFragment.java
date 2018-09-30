@@ -47,7 +47,6 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Acho que preciso melhorar isso
         user = new User();
     }
 
@@ -123,7 +122,7 @@ public class PasswordLoginFragment extends Fragment implements PasswordLoginCont
     }
 
     @Override
-    public void onFailure() {
+    public void errorRequest() {
         // Mostra o teclado quando ocorre um erro na requisição do Retrofit
         KeyboardToggleHelper.toggle(getActivity());
 

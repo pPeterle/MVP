@@ -1,61 +1,47 @@
 package app.mvp.ui.fragment.login;
 
-import app.mvp.helper.ResponseHelper;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
-import app.mvp.retrofit.Config;
-import app.mvp.service.LoginService;
 import app.mvp.session.Session;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLoginPresenter {
-
-    // View
     private PasswordLoginContract.PasswordLoginView view;
-
-    // Model ( EM CONSTRUÇÃO )
     private PasswordLoginContract.PasswordLoginModel model;
-
-    private Call<User> response;
-    private LoginService loginService;
 
     private Session session;
 
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Session session) {
         this.view = view;
-        this.loginService = Config.getLoginService();
         this.session = session;
+
+        model = new PasswordLoginModel(this);
     }
 
     @Override
     public void callLoginProcess(User user) {
+        // Lógica
         if (contentFieldsIsValid(user.getPassword())) {
-
-            response = loginService.login(user);
-            response.enqueue(new Callback<User>() {
-
-                @Override
-                public void onResponse(Call<User> call, retrofit2.Response<User> response) {
-                    final User resp = response.body();
-
-                    if (ResponseHelper.isValid(resp, response)) {
-                        model.gravar(resp); // session.setLogin(resp);
-
-                        view.openDashboard();
-                    } else {
-                        view.errorLogin();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    if (!call.isCanceled()) {
-                        view.onFailure();
-                    }
-                }
-            });
+            // Faz a requisição com o Retrofit2 e pega os dados da API
+            model.request(user);
         }
+    }
+
+    @Override
+    public void errorRequest() {
+        view.errorRequest();
+    }
+
+    @Override
+    public void errorLogin() {
+        view.errorLogin();
+    }
+
+    @Override
+    public void openDashboard(User resp) {
+        // Salva os dados retornados da API, na sessão (SharedPreferences)
+        session.setLogin(resp);
+
+        view.openDashboard();
     }
 
     private boolean contentFieldsIsValid(String password) {
@@ -81,9 +67,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     @Override
     public void onPause() {
-        if (response != null) {
-            response.cancel();
-        }
+        model.onPause();
     }
 
     @Override

@@ -4,10 +4,13 @@ import app.mvp.model.User;
 
 public interface PasswordLoginContract {
 
-    // Não finalizado
     interface PasswordLoginModel {
 
-        void gravar(User resp);
+        // Responsável por fazer a requisição com Retrofit2
+        void request(User user);
+
+        // Quando a requisição é cancelada
+        void onPause();
 
     }
 
@@ -17,18 +20,32 @@ public interface PasswordLoginContract {
 
         void notIsPassword();
 
-        void onFailure(); // Quando ocorre um erro na requisição do Retrofit
+        // Pega o erro que o Presenter recebeu do Model
+        void errorRequest();
 
+        // Pega o erro que o Presenter recebeu do Model
         void errorLogin();
 
-        void openDashboard(); // Abre o Dashboard do usuário logado
+        // Abre a Activity
+        void openDashboard();
 
     }
 
     interface PasswordLoginPresenter {
 
-        void callLoginProcess(User user); // Faz o login
+        // O Presenter pede para o Model, fazer a requisição
+        void callLoginProcess(User user);
 
+        // Pega o erro que o Presenter recebeu do Model
+        void errorRequest();
+
+        // Pega o erro que o Presenter recebeu do Model
+        void errorLogin();
+
+        // Salva os dados retornados do Model E manda a View abrir a Activity
+        void openDashboard(User resp);
+
+        // Quando a requisição é cancelada
         void onPause();
 
         void onDestroy();

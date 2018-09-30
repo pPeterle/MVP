@@ -5,6 +5,6 @@ import retrofit2.Response;
 
 public class ResponseHelper {
     public static boolean isValid(User resp, Response<User> response) {
-        return resp != null && response.body() != null;
+        return resp != null && response.isSuccessful() && response.body() != null;
     }
 }
