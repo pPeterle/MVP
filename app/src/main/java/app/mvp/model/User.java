@@ -1,7 +1,5 @@
 package app.mvp.model;
 
-import app.mvp.ui.fragment.login.PasswordLoginContract;
-
 public class User {
     private String uuid;
     private String establishment_uuid;
