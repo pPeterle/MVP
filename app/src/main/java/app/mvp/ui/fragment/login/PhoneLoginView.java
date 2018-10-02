@@ -16,11 +16,11 @@ import app.mvp.helper.FragmentHelper;
 import app.mvp.helper.PhoneMaskHelper;
 
 public class PhoneLoginView extends Fragment implements PhoneLoginContract.PhoneLoginView {
+    private PhoneLoginContract.PhoneLoginPresenter presenter;
+
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
-
-    private PhoneLoginContract.PhoneLoginPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

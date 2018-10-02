@@ -16,12 +16,12 @@ import app.mvp.helper.FragmentHelper;
 import app.mvp.model.User;
 
 public class EmailRegisterView extends Fragment implements EmailRegisterContract.EmailRegisterView {
+    private EmailRegisterContract.EmailRegisterPresenter presenter;
+
     private User user;
     private TextInputEditText et_email;
     private TextInputLayout il_email;
     private ImageButton btn_next;
-
-    private EmailRegisterContract.EmailRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

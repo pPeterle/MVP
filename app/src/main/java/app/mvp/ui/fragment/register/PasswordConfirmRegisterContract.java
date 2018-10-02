@@ -4,6 +4,14 @@ import app.mvp.model.User;
 
 public interface PasswordConfirmRegisterContract {
 
+    interface PasswordConfirmRegisterModel {
+
+        void request(User user);
+
+        void onPause();
+
+    }
+
     interface PasswordConfirmRegisterView {
 
         void passwordIsEmpty();
@@ -12,17 +20,23 @@ public interface PasswordConfirmRegisterContract {
 
         void notIsChecked();
 
-        void onFailure();
+        void errorRequest();
 
         void errorRegister();
 
-        void openDashboard(User resp);
+        void openDashboard();
 
     }
 
     interface PasswordConfirmRegisterPresenter {
 
         void callDashboard(User user);
+
+        void errorRequest();
+
+        void errorRegister();
+
+        void openDashboard(User resp);
 
         void onPause();
 

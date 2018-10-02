@@ -16,9 +16,9 @@ import app.mvp.ui.activity.login.LoginView;
 import app.mvp.ui.activity.register.RegisterView;
 
 public class HomeView extends AppCompatActivity implements HomeContract.HomeView {
-    public Intent intent;
-
     private HomeContract.HomePresenter presenter;
+
+    public Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

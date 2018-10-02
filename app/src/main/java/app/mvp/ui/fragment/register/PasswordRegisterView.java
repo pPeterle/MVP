@@ -16,12 +16,12 @@ import app.mvp.helper.FragmentHelper;
 import app.mvp.model.User;
 
 public class PasswordRegisterView extends Fragment implements PasswordRegisterContract.PasswordRegisterView {
+    private PasswordRegisterContract.PasswordRegisterPresenter presenter;
+
     private User user;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private ImageButton btn_next;
-
-    private PasswordRegisterContract.PasswordRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

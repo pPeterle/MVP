@@ -17,15 +17,14 @@ import app.mvp.helper.FragmentHelper;
 import app.mvp.model.User;
 
 public class NicknameRegisterView extends Fragment implements NicknameRegisterContract.NicknameRegisterView {
+    private NicknameRegisterContract.NicknameRegisterPresenter presenter;
+
     public TextView tv_firstname;
-    public String name;
 
     private User user;
     private TextInputEditText et_nickname;
     private TextInputLayout il_nickname;
     private ImageButton btn_next;
-
-    private NicknameRegisterContract.NicknameRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

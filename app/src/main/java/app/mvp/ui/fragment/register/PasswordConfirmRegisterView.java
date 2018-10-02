@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,15 +16,19 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import app.mvp.App;
 import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
 import app.mvp.session.Session;
+import app.mvp.ui.activity.register.RegisterView;
 import app.mvp.ui.activity.splash.SplashView;
 import app.mvp.ui.activity.terms.TermsView;
 
 public class PasswordConfirmRegisterView extends Fragment implements PasswordConfirmRegisterContract.PasswordConfirmRegisterView {
+    private PasswordConfirmRegisterContract.PasswordConfirmRegisterPresenter presenter;
+
     public Intent intent;
     public Session session;
     public TextView tv_terms;
@@ -35,18 +40,19 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
     private TextInputLayout il_password_confirm;
     private ImageButton btn_next;
 
-    private PasswordConfirmRegisterContract.PasswordConfirmRegisterPresenter presenter;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        RegisterView activity = (RegisterView) context;
+        session = ((App) activity.getApplication()).getSession();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        session = new Session(getActivity());
         user = new User();
-
-        if (presenter == null) {
-            presenter = new PasswordConfirmRegisterPresenter(this);
-        }
     }
 
     @Nullable
@@ -74,6 +80,10 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
         btn_next.setOnClickListener(next);
 
         progress = view.findViewById(R.id.progress);
+
+        if (presenter == null) {
+            presenter = new PasswordConfirmRegisterPresenter(this, session);
+        }
     }
 
     private View.OnClickListener terms = new View.OnClickListener() {
@@ -146,7 +156,7 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
     }
 
     @Override
-    public void onFailure() {
+    public void errorRequest() {
         // Mostra o teclado
         KeyboardToggleHelper.toggle(getActivity());
 
@@ -163,11 +173,8 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
     }
 
     @Override
-    public void openDashboard(User resp) {
+    public void openDashboard() {
         progress.setVisibility(View.GONE);
-
-        // Grava os dados retornados do Presenter, na sessão
-        session.setLogin(resp);
 
         intent = new Intent(getActivity(), SplashView.class);
 

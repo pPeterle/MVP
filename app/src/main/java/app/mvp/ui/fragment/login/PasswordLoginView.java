@@ -24,6 +24,8 @@ import app.mvp.ui.activity.login.LoginView;
 import app.mvp.ui.activity.splash.SplashView;
 
 public class PasswordLoginView extends Fragment implements PasswordLoginContract.PasswordLoginView {
+    private PasswordLoginContract.PasswordLoginPresenter presenter;
+
     public Intent intent;
     public ProgressBar progress;
 
@@ -32,8 +34,6 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private User user;
-
-    private PasswordLoginContract.PasswordLoginPresenter presenter;
 
     @Override
     public void onAttach(Context context) {

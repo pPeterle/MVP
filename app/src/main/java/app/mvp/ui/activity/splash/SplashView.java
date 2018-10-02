@@ -11,11 +11,11 @@ import app.mvp.ui.activity.dashboard.DashboardView;
 import app.mvp.ui.activity.home.HomeView;
 
 public class SplashView extends AppCompatActivity implements SplashContract.SplashView {
+    private SplashContract.SplashPresenter presenter;
+
     public Handler handler;
     public Intent intent;
     public Session session;
-
-    private SplashContract.SplashPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

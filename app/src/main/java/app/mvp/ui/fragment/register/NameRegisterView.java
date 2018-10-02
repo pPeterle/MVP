@@ -15,11 +15,11 @@ import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 
 public class NameRegisterView extends Fragment implements NameRegisterContract.NameRegisterView {
+    private NameRegisterContract.NameRegisterPresenter presenter;
+
     private TextInputEditText et_name;
     private TextInputLayout il_name;
     private ImageButton btn_next;
-
-    private NameRegisterContract.NameRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

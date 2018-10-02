@@ -17,12 +17,12 @@ import app.mvp.helper.PhoneMaskHelper;
 import app.mvp.model.User;
 
 public class PhoneRegisterView extends Fragment implements PhoneRegisterContract.PhoneRegisterView {
+    private PhoneRegisterContract.PhoneRegisterPresenter presenter;
+
     private User user;
     private TextInputEditText et_phone;
     private TextInputLayout il_phone;
     private ImageButton btn_next;
-
-    private PhoneRegisterContract.PhoneRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
