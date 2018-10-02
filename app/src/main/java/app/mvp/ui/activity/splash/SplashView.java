@@ -7,10 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import app.mvp.R;
 import app.mvp.session.Session;
-import app.mvp.ui.activity.dashboard.DashboardActivity;
-import app.mvp.ui.activity.home.HomeActivity;
+import app.mvp.ui.activity.dashboard.DashboardView;
+import app.mvp.ui.activity.home.HomeView;
 
-public class SplashActivity extends AppCompatActivity implements SplashContract.SplashView {
+public class SplashView extends AppCompatActivity implements SplashContract.SplashView {
     public Handler handler;
     public Intent intent;
     public Session session;
@@ -42,16 +42,16 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
 
     @Override
     public void openHome() {
-        intent = new Intent(SplashActivity.this, HomeActivity.class);
+        intent = new Intent(SplashView.this, HomeView.class);
         startActivity(intent);
-        SplashActivity.this.finish();
+        SplashView.this.finish();
     }
 
     @Override
     public void openDashboard() {
-        intent = new Intent(SplashActivity.this, DashboardActivity.class);
+        intent = new Intent(SplashView.this, DashboardView.class);
         startActivity(intent);
-        SplashActivity.this.finish();
+        SplashView.this.finish();
 
         overridePendingTransition(0, 0);
     }

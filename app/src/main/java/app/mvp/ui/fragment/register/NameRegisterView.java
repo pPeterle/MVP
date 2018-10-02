@@ -13,43 +13,38 @@ import android.widget.ImageButton;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.model.User;
 
-public class EmailRegisterFragment extends Fragment implements EmailRegisterContract.EmailRegisterView {
-    private User user;
-    private TextInputEditText et_email;
-    private TextInputLayout il_email;
+public class NameRegisterView extends Fragment implements NameRegisterContract.NameRegisterView {
+    private TextInputEditText et_name;
+    private TextInputLayout il_name;
     private ImageButton btn_next;
 
-    private EmailRegisterContract.EmailRegisterPresenter presenter;
+    private NameRegisterContract.NameRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        user = new User();
-        user = registerUser();
-
         if (presenter == null) {
-            presenter = new EmailRegisterPresenter(this);
+            presenter = new NameRegisterPresenter(this);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_email_register, container, false);
+        return inflater.inflate(R.layout.fragment_name_register, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        et_email = view.findViewById(R.id.et_email);
-        il_email = view.findViewById(R.id.il_email);
+        et_name = view.findViewById(R.id.et_name);
+        il_name = view.findViewById(R.id.il_name);
 
-        et_email.setFocusable(true);
-        et_email.requestFocus();
+        et_name.setFocusable(true);
+        et_name.requestFocus();
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
@@ -60,45 +55,33 @@ public class EmailRegisterFragment extends Fragment implements EmailRegisterCont
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            presenter.callPhoneRegister(et_email.getText().toString());
+            presenter.callNicknameRegister(et_name.getText().toString().trim());
         }
     };
 
-    private User registerUser() {
-        Bundle args = getArguments();
-
-        if (args != null) {
-            user.setName(args.getString("name"));
-            user.setNickname(args.getString("nickname"));
-        }
-        return user;
-    }
-
     private void cleanErrorMessageFields() {
-        il_email.setError(null);
-        il_email.setErrorEnabled(false);
+        il_name.setError(null);
+        il_name.setErrorEnabled(false);
     }
 
     @Override
-    public void emailIsEmpty() {
-        il_email.setError(getString(R.string.empty_email));
+    public void nameIsEmpty() {
+        il_name.setError(getString(R.string.empty_name));
     }
 
     @Override
-    public void notIsEmail() {
-        il_email.setError(getString(R.string.invalid_email));
+    public void notIsFullname() {
+        il_name.setError(getString(R.string.empty_name));
     }
 
     @Override
-    public void openPhoneRegister(String email) {
+    public void openNicknameRegister(String name) {
         btn_next.setEnabled(false);
 
         Bundle bundle = new Bundle();
-        bundle.putString("name", user.getName());
-        bundle.putString("nickname", user.getNickname());
-        bundle.putString("email", email);
+        bundle.putString("name", name.substring(0,1).toUpperCase() + name.substring(1));
 
-        FragmentHelper.load(new PhoneRegisterFragment(), true, bundle, getActivity());
+        FragmentHelper.load(new NicknameRegisterView(), true, bundle, getActivity());
     }
 
     @Override

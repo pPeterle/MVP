@@ -20,10 +20,10 @@ import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
 import app.mvp.session.Session;
-import app.mvp.ui.activity.splash.SplashActivity;
-import app.mvp.ui.activity.terms.TermsActivity;
+import app.mvp.ui.activity.splash.SplashView;
+import app.mvp.ui.activity.terms.TermsView;
 
-public class PasswordConfirmRegisterFragment extends Fragment implements PasswordConfirmRegisterContract.PasswordConfirmRegisterView {
+public class PasswordConfirmRegisterView extends Fragment implements PasswordConfirmRegisterContract.PasswordConfirmRegisterView {
     public Intent intent;
     public Session session;
     public TextView tv_terms;
@@ -81,7 +81,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            intent = new Intent(getActivity(), TermsActivity.class);
+            intent = new Intent(getActivity(), TermsView.class);
 
             if (getActivity() != null) {
                 getActivity().startActivity(intent);
@@ -169,7 +169,7 @@ public class PasswordConfirmRegisterFragment extends Fragment implements Passwor
         // Grava os dados retornados do Presenter, na sessão
         session.setLogin(resp);
 
-        intent = new Intent(getActivity(), SplashActivity.class);
+        intent = new Intent(getActivity(), SplashView.class);
 
         if (getActivity() != null) {
             getActivity().startActivity(intent);

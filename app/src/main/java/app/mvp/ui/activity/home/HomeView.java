@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import app.mvp.R;
-import app.mvp.ui.activity.login.LoginActivity;
-import app.mvp.ui.activity.register.RegisterActivity;
+import app.mvp.ui.activity.login.LoginView;
+import app.mvp.ui.activity.register.RegisterView;
 
-public class HomeActivity extends AppCompatActivity implements HomeContract.HomeView {
+public class HomeView extends AppCompatActivity implements HomeContract.HomeView {
     public Intent intent;
 
     private HomeContract.HomePresenter presenter;
@@ -75,16 +75,16 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
 
     @Override
     public void openLogin() {
-        intent = new Intent(HomeActivity.this, LoginActivity.class);
+        intent = new Intent(HomeView.this, LoginView.class);
         startActivity(intent);
-        HomeActivity.this.finish();
+        HomeView.this.finish();
     }
 
     @Override
     public void openRegisterClient() {
-        intent = new Intent(HomeActivity.this, RegisterActivity.class);
+        intent = new Intent(HomeView.this, RegisterView.class);
         startActivity(intent);
-        HomeActivity.this.finish();
+        HomeView.this.finish();
     }
 
     @Override

@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import app.mvp.R;
 
-public class TermsActivity extends AppCompatActivity {
+public class TermsView extends AppCompatActivity {
     public ProgressBar progress;
     public WebView webView;
 

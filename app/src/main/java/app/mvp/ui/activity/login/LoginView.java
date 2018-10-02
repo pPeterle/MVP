@@ -1,4 +1,4 @@
-package app.mvp.ui.activity.register;
+package app.mvp.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,32 +6,32 @@ import android.support.v7.app.AppCompatActivity;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.ui.activity.home.HomeActivity;
-import app.mvp.ui.fragment.register.NameRegisterFragment;
+import app.mvp.ui.activity.home.HomeView;
+import app.mvp.ui.fragment.login.PhoneLoginView;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterContract.RegisterView {
-    private RegisterContract.RegisterPresenter presenter;
+public class LoginView extends AppCompatActivity implements LoginContract.LoginView {
+    private LoginContract.LoginPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.container);
 
         if (presenter == null) {
-            presenter = new RegisterPresenter(this);
+            presenter = new LoginPresenter(this);
         }
     }
 
     @Override
     public void initView() {
-        FragmentHelper.load(new NameRegisterFragment(), true, new Bundle(), this);
+        FragmentHelper.load(new PhoneLoginView(), true, new Bundle(), this);
     }
 
     @Override
     public void openHome() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, HomeView.class);
         startActivity(intent);
-        RegisterActivity.this.finish();
+        LoginView.this.finish();
     }
 
     @Override

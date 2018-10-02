@@ -20,8 +20,8 @@ import app.mvp.helper.KeyboardToggleHelper;
 import app.mvp.helper.ToastHelper;
 import app.mvp.model.User;
 import app.mvp.session.Session;
-import app.mvp.ui.activity.login.LoginActivity;
-import app.mvp.ui.activity.splash.SplashActivity;
+import app.mvp.ui.activity.login.LoginView;
+import app.mvp.ui.activity.splash.SplashView;
 
 public class PasswordLoginView extends Fragment implements PasswordLoginContract.PasswordLoginView {
     public Intent intent;
@@ -39,7 +39,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        LoginActivity activity = (LoginActivity) context;
+        LoginView activity = (LoginView) context;
         session = ((App) activity.getApplication()).getSession();
     }
 
@@ -142,7 +142,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     public void openDashboard() {
         progress.setVisibility(View.GONE);
 
-        intent = new Intent(getActivity(), SplashActivity.class);
+        intent = new Intent(getActivity(), SplashView.class);
 
         if (getActivity() != null) {
             getActivity().startActivity(intent);

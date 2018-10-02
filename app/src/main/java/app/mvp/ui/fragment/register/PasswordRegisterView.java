@@ -15,7 +15,7 @@ import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
 import app.mvp.model.User;
 
-public class PasswordRegisterFragment extends Fragment implements PasswordRegisterContract.PasswordRegisterView {
+public class PasswordRegisterView extends Fragment implements PasswordRegisterContract.PasswordRegisterView {
     private User user;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
@@ -102,7 +102,7 @@ public class PasswordRegisterFragment extends Fragment implements PasswordRegist
         bundle.putString("phone", user.getPhone());
         bundle.putString("password", password);
 
-        FragmentHelper.load(new PasswordConfirmRegisterFragment(), true, bundle, getActivity());
+        FragmentHelper.load(new PasswordConfirmRegisterView(), true, bundle, getActivity());
     }
 
     @Override

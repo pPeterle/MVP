@@ -10,19 +10,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import app.mvp.R;
 import app.mvp.helper.FragmentHelper;
-import app.mvp.helper.PhoneMaskHelper;
 import app.mvp.model.User;
 
-public class PhoneRegisterFragment extends Fragment implements PhoneRegisterContract.PhoneRegisterView {
+public class NicknameRegisterView extends Fragment implements NicknameRegisterContract.NicknameRegisterView {
+    public TextView tv_firstname;
+    public String name;
+
     private User user;
-    private TextInputEditText et_phone;
-    private TextInputLayout il_phone;
+    private TextInputEditText et_nickname;
+    private TextInputLayout il_nickname;
     private ImageButton btn_next;
 
-    private PhoneRegisterContract.PhoneRegisterPresenter presenter;
+    private NicknameRegisterContract.NicknameRegisterPresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,30 +35,35 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
         user = registerUser();
 
         if (presenter == null) {
-            presenter = new PhoneRegisterPresenter(this);
+            presenter = new NicknameRegisterPresenter(this);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_phone_register, container, false);
+        return inflater.inflate(R.layout.fragment_nickname_register, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        et_phone = view.findViewById(R.id.et_phone);
-        il_phone = view.findViewById(R.id.il_phone);
+        tv_firstname = view.findViewById(R.id.tv_firstname);
+        tv_firstname.setText(firstWord(user.getName()));
 
-        et_phone.setFocusable(true);
-        et_phone.requestFocus();
+        et_nickname = view.findViewById(R.id.et_nickname);
+        il_nickname = view.findViewById(R.id.il_nickname);
+
+        et_nickname.setFocusable(true);
+        et_nickname.requestFocus();
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
+    }
 
-        et_phone.addTextChangedListener(PhoneMaskHelper.insert(et_phone));
+    public static String firstWord(String string) {
+        return string.split(" ")[0];
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -63,7 +71,7 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
         public void onClick(View view) {
             cleanErrorMessageFields();
 
-            presenter.callPasswordRegister(et_phone.getText().toString());
+            presenter.callEmailRegister(et_nickname.getText().toString().trim());
         }
     };
 
@@ -72,38 +80,29 @@ public class PhoneRegisterFragment extends Fragment implements PhoneRegisterCont
 
         if (args != null) {
             user.setName(args.getString("name"));
-            user.setNickname(args.getString("nickname"));
-            user.setEmail(args.getString("email"));
         }
         return user;
     }
 
     private void cleanErrorMessageFields() {
-        il_phone.setError(null);
-        il_phone.setErrorEnabled(false);
+        il_nickname.setError(null);
+        il_nickname.setErrorEnabled(false);
     }
 
     @Override
-    public void phoneIsEmpty() {
-        il_phone.setError(getString(R.string.empty_phone));
+    public void nicknameIsEmpty() {
+        il_nickname.setError(getString(R.string.empty_nickname));
     }
 
     @Override
-    public void notIsPhone() {
-        il_phone.setError(getString(R.string.invalid_phone_length));
-    }
-
-    @Override
-    public void openPasswordRegister(String phone) {
+    public void openEmailRegister(String nickname) {
         btn_next.setEnabled(false);
 
         Bundle bundle = new Bundle();
         bundle.putString("name", user.getName());
-        bundle.putString("nickname", user.getNickname());
-        bundle.putString("email", user.getEmail());
-        bundle.putString("phone", phone);
+        bundle.putString("nickname", nickname.substring(0,1).toUpperCase() + nickname.substring(1));
 
-        FragmentHelper.load(new PasswordRegisterFragment(), true, bundle, getActivity());
+        FragmentHelper.load(new EmailRegisterView(), true, bundle, getActivity());
     }
 
     @Override

@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/defaultTheme">
 
-        <activity android:name=".ui.activity.splash.SplashActivity" android:theme="@style/splash" android:screenOrientation="portrait">
+        <activity android:name=".ui.activity.splash.SplashView" android:theme="@style/splash" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,18 +28,18 @@
         </activity>
 
         <!-- Login -->
-        <activity android:name=".ui.activity.home.HomeActivity" android:theme="@style/home" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.login.LoginActivity" android:theme="@style/login_register" android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ui.activity.home.HomeView" android:theme="@style/home" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.login.LoginView" android:theme="@style/login_register" android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize" />
 
         <!-- Register -->
-        <activity android:name=".ui.activity.register.RegisterActivity" android:theme="@style/login_register" android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".ui.activity.terms.TermsActivity" />
+        <activity android:name=".ui.activity.register.RegisterView" android:theme="@style/login_register" android:screenOrientation="portrait" android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ui.activity.terms.TermsView" />
 
-        <activity android:name=".ui.activity.dashboard.DashboardActivity" android:theme="@style/dashboard" android:screenOrientation="portrait" android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".ui.activity.dashboard.DashboardView" android:theme="@style/dashboard" android:screenOrientation="portrait" android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".ui.activity.profile.ProfileActivity" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.profile.ProfileView" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.activity.establishment.ListEstablishmentsActivity" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.establishment.ListEstablishmentsView" android:theme="@style/defaultTheme" android:screenOrientation="portrait" />
 
     </application>
 

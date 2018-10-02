@@ -8,7 +8,7 @@ import android.widget.ListView;
 import app.mvp.R;
 import app.mvp.adapter.UserProfileAdapter;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

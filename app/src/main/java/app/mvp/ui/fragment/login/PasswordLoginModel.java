@@ -2,7 +2,6 @@ package app.mvp.ui.fragment.login;
 
 import android.support.annotation.NonNull;
 
-import app.mvp.helper.NetworkHelper;
 import app.mvp.helper.ResponseHelper;
 import app.mvp.model.User;
 import app.mvp.model.server.NoConnectivityException;
@@ -13,7 +12,7 @@ import retrofit2.Callback;
 
 public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginModel {
     private PasswordLoginContract.PasswordLoginPresenter presenter;
-    private Call<User> response;
+    private Call<User> call;
     private LoginService loginService;
 
     PasswordLoginModel(PasswordLoginContract.PasswordLoginPresenter presenter){
@@ -23,8 +22,8 @@ public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginMo
 
     @Override
     public void request(User user) {
-        response = loginService.login(user);
-        response.enqueue(new Callback<User>() {
+        call = loginService.login(user);
+        call.enqueue(new Callback<User>() {
 
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull retrofit2.Response<User> response) {
@@ -52,8 +51,8 @@ public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginMo
 
     @Override
     public void onPause() {
-        if (response != null) {
-            response.cancel();
+        if (call != null) {
+            call.cancel();
         }
     }
 }

@@ -9,7 +9,7 @@ import android.widget.ProgressBar;
 import app.mvp.R;
 import app.mvp.database.Database;
 
-public class ListEstablishmentsActivity extends AppCompatActivity {
+public class ListEstablishmentsView extends AppCompatActivity {
     public Database database;
     public Toolbar toolbar;
     public ProgressBar progress;

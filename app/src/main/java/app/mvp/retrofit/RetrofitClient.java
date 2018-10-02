@@ -1,8 +1,5 @@
 package app.mvp.retrofit;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-
 import java.util.concurrent.TimeUnit;
 
 import app.mvp.model.server.ConnectivityInterceptor;
@@ -15,9 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 class RetrofitClient {
     private static Retrofit retrofit = null;
 
-    @SuppressLint("StaticFieldLeak")
-    private static Context context = null;
-
     static Retrofit getClient(String url) {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -29,7 +23,7 @@ class RetrofitClient {
                     .readTimeout(2, TimeUnit.MINUTES);
 
             httpClient.addInterceptor(logging);
-            httpClient.addInterceptor(new ConnectivityInterceptor(context));
+            //httpClient.addInterceptor(new ConnectivityInterceptor(this));
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(url)
