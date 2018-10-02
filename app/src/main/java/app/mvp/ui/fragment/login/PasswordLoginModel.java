@@ -2,8 +2,10 @@ package app.mvp.ui.fragment.login;
 
 import android.support.annotation.NonNull;
 
+import app.mvp.helper.NetworkHelper;
 import app.mvp.helper.ResponseHelper;
 import app.mvp.model.User;
+import app.mvp.model.server.NoConnectivityException;
 import app.mvp.retrofit.Config;
 import app.mvp.service.LoginService;
 import retrofit2.Call;
@@ -37,6 +39,10 @@ public class PasswordLoginModel implements PasswordLoginContract.PasswordLoginMo
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                if (t instanceof NoConnectivityException) {
+                    presenter.errorRequest();
+                }
+
                 if (!call.isCanceled()) {
                     presenter.errorRequest();
                 }
