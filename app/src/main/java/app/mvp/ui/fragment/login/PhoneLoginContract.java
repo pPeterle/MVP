@@ -4,9 +4,7 @@ public interface PhoneLoginContract {
 
     interface PhoneLoginView {
 
-        void phoneIsEmpty();
-
-        void notIsPhone();
+        void error(int error);
 
         void openPasswordLogin();
 

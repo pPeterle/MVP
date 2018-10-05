@@ -16,15 +16,8 @@ public interface PasswordLoginContract {
 
     interface PasswordLoginView {
 
-        void passwordIsEmpty();
-
-        void notIsPassword();
-
         // Pega o erro que o Presenter recebeu do Model
-        void errorRequest();
-
-        // Pega o erro que o Presenter recebeu do Model
-        void errorLogin();
+        void error(int error);
 
         // Abre a Activity
         void openDashboard();
@@ -34,13 +27,10 @@ public interface PasswordLoginContract {
     interface PasswordLoginPresenter {
 
         // Pede para o Model fazer a requisição
-        void callLoginProcess(User user);
+        void loginProcess(User user);
 
         // Pega o erro que recebeu do Model
-        void errorRequest();
-
-        // Pega o erro que recebeu do Model
-        void errorLogin();
+        void error(int error);
 
         // Salva os dados retornados do Model E manda a View abrir a Activity
         void openDashboard(User resp);

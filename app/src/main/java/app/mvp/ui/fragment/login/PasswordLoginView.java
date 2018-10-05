@@ -88,7 +88,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
             progress.setVisibility(View.VISIBLE);
 
             user = loginUser();
-            presenter.callLoginProcess(user);
+            presenter.loginProcess(user);
         }
     };
 
@@ -112,17 +112,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     }
 
     @Override
-    public void passwordIsEmpty() {
-        il_password.setError(getString(R.string.empty_password));
-    }
-
-    @Override
-    public void notIsPassword() {
-        il_password.setError(getString(R.string.invalid_password));
-    }
-
-    @Override
-    public void errorRequest() {
+    public void error(int error) {
         // Mostra o teclado quando ocorre um erro na requisição do Retrofit
         KeyboardToggleHelper.toggle(getActivity());
 
@@ -130,12 +120,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
         et_password.setEnabled(true);
         progress.setVisibility(View.GONE);
 
-        ToastHelper.alert(getResources().getString(R.string.response_error), getActivity());
-    }
-
-    @Override
-    public void errorLogin() {
-        ToastHelper.alert("Telefone ou senha, incorreto", getActivity());
+        ToastHelper.alert(getString(error), getActivity());
     }
 
     @Override

@@ -22,15 +22,6 @@ public class PhoneLoginView extends Fragment implements PhoneLoginContract.Phone
     private TextInputLayout il_phone;
     private ImageButton btn_next;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (presenter == null) {
-            presenter = new PhoneLoginPresenter(this);
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +42,10 @@ public class PhoneLoginView extends Fragment implements PhoneLoginContract.Phone
         btn_next.setOnClickListener(next);
 
         et_phone.addTextChangedListener(PhoneMaskHelper.insert(et_phone));
+
+        if (presenter == null) {
+            presenter = new PhoneLoginPresenter(this);
+        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -68,13 +63,8 @@ public class PhoneLoginView extends Fragment implements PhoneLoginContract.Phone
     }
 
     @Override
-    public void phoneIsEmpty() {
-        il_phone.setError(getString(R.string.empty_phone));
-    }
-
-    @Override
-    public void notIsPhone() {
-        il_phone.setError(getString(R.string.invalid_phone_length));
+    public void error(int error) {
+        il_phone.setError(getString(error));
     }
 
     @Override

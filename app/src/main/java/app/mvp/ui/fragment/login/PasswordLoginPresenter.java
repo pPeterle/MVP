@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.login;
 
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
 import app.mvp.session.Session;
@@ -18,7 +19,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     }
 
     @Override
-    public void callLoginProcess(User user) {
+    public void loginProcess(User user) {
         // Lógica
         if (contentFieldsIsValid(user.getPassword())) {
             // Faz a requisição com o Retrofit2 e pega os dados da API
@@ -27,13 +28,8 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
     }
 
     @Override
-    public void errorRequest() {
-        view.errorRequest();
-    }
-
-    @Override
-    public void errorLogin() {
-        view.errorLogin();
+    public void error(int error) {
+        view.error(error);
     }
 
     @Override
@@ -46,12 +42,12 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     private boolean contentFieldsIsValid(String password) {
         if (passwordIsEmpty(password)) {
-            view.passwordIsEmpty();
+            view.error(R.string.empty_password);
             return false;
         }
 
         if (notIsPassword(password)) {
-            view.notIsPassword();
+            view.error(R.string.invalid_password);
             return false;
         }
         return true;
