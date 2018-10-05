@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 
 public class PasswordRegisterPresenter implements PasswordRegisterContract.PasswordRegisterPresenter {
@@ -18,12 +19,12 @@ public class PasswordRegisterPresenter implements PasswordRegisterContract.Passw
 
     private boolean contentFieldsIsValid(String password) {
         if (passwordIsEmpty(password)) {
-            view.passwordIsEmpty();
+            view.error(R.string.empty_password);
             return false;
         }
 
         if (notIsPassword(password)) {
-            view.notIsPassword();
+            view.error(R.string.invalid_password);
             return false;
         }
         return true;

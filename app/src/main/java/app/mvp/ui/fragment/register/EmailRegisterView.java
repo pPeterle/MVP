@@ -29,10 +29,6 @@ public class EmailRegisterView extends Fragment implements EmailRegisterContract
 
         user = new User();
         user = registerUser();
-
-        if (presenter == null) {
-            presenter = new EmailRegisterPresenter(this);
-        }
     }
 
     @Nullable
@@ -53,6 +49,10 @@ public class EmailRegisterView extends Fragment implements EmailRegisterContract
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
+
+        if (presenter == null) {
+            presenter = new EmailRegisterPresenter(this);
+        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -80,13 +80,8 @@ public class EmailRegisterView extends Fragment implements EmailRegisterContract
     }
 
     @Override
-    public void emailIsEmpty() {
-        il_email.setError(getString(R.string.empty_email));
-    }
-
-    @Override
-    public void notIsEmail() {
-        il_email.setError(getString(R.string.invalid_email));
+    public void error(int error) {
+        il_email.setError(getString(error));
     }
 
     @Override

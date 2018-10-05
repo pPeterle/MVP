@@ -19,12 +19,12 @@ public class EmailRegisterPresenter implements EmailRegisterContract.EmailRegist
 
     private boolean contentFieldsIsValid(String email) {
         if (emailIsEmpty(email)) {
-            view.emailIsEmpty();
+            view.error(R.string.empty_email);
             return false;
         }
 
         if (notIsEmail(email)) {
-            view.notIsEmail();
+            view.error(R.string.invalid_email);
             return false;
         }
         return true;

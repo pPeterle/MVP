@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 
 public class NameRegisterPresenter implements NameRegisterContract.NameRegisterPresenter {
@@ -18,12 +19,12 @@ public class NameRegisterPresenter implements NameRegisterContract.NameRegisterP
 
     private boolean contentFieldsIsValid(String name) {
         if (nameIsEmpty(name)) {
-            view.nameIsEmpty();
+            view.error(R.string.empty_name);
             return false;
         }
 
         if (notIsFullname(name)) {
-            view.notIsFullname();
+            view.error(R.string.register_phrase_fullname);
             return false;
         }
         return true;

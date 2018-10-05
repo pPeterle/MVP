@@ -14,15 +14,7 @@ public interface PasswordConfirmRegisterContract {
 
     interface PasswordConfirmRegisterView {
 
-        void passwordIsEmpty();
-
-        void notIsSamePassword();
-
-        void notIsChecked();
-
-        void errorRequest();
-
-        void errorRegister();
+        void error(int error);
 
         void openDashboard();
 
@@ -32,9 +24,7 @@ public interface PasswordConfirmRegisterContract {
 
         void callDashboard(User user);
 
-        void errorRequest();
-
-        void errorRegister();
+        void error(int error);
 
         void openDashboard(User resp);
 

@@ -58,6 +58,7 @@
     <string name="invalid_password">Sua senha deve possuir no mínimo 8 caracteres</string>
     <string name="invalid_password_confirm">Confirme a senha informada</string>
 
+    <string name="error_register_response">Erro ao se cadastrar, tente novamente mais tarde</string>
     <string name="error_login_response">Erro na conexão, tente novamente</string>
     <string name="error_request">Erro na conexão, tente novamente</string>
 

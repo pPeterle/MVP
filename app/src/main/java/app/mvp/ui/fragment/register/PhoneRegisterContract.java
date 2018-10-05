@@ -4,9 +4,7 @@ public interface PhoneRegisterContract {
 
     interface PhoneRegisterView {
 
-        void phoneIsEmpty();
-
-        void notIsPhone();
+        void error(int error);
 
         void openPasswordRegister(String phone);
 

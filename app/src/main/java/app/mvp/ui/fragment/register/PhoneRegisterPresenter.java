@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 
 public class PhoneRegisterPresenter implements PhoneRegisterContract.PhoneRegisterPresenter {
@@ -18,12 +19,12 @@ public class PhoneRegisterPresenter implements PhoneRegisterContract.PhoneRegist
 
     private boolean contentFieldsIsValid(String phone) {
         if (phoneIsEmpty(phone)) {
-            view.phoneIsEmpty();
+            view.error(R.string.empty_phone);
             return false;
         }
 
         if (notIsPhone(phone)) {
-            view.notIsPhone();
+            view.error(R.string.invalid_phone);
             return false;
         }
         return true;

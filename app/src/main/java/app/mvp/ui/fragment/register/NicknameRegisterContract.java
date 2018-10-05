@@ -4,7 +4,7 @@ public interface NicknameRegisterContract {
 
     interface NicknameRegisterView {
 
-        void nicknameIsEmpty();
+        void error(int error);
 
         void openEmailRegister(String nickname);
 

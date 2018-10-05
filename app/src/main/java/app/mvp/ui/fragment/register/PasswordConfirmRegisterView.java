@@ -141,22 +141,7 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
     }
 
     @Override
-    public void passwordIsEmpty() {
-        il_password_confirm.setError(getString(R.string.empty_password_confirm));
-    }
-
-    @Override
-    public void notIsSamePassword() {
-        il_password_confirm.setError(getString(R.string.invalid_password_confirm));
-    }
-
-    @Override
-    public void notIsChecked() {
-        ToastHelper.alert(getResources().getString(R.string.error_accept), getActivity());
-    }
-
-    @Override
-    public void errorRequest() {
+    public void error(int error) {
         // Mostra o teclado
         KeyboardToggleHelper.toggle(getActivity());
 
@@ -164,12 +149,7 @@ public class PasswordConfirmRegisterView extends Fragment implements PasswordCon
         et_password_confirm.setEnabled(true);
         progress.setVisibility(View.GONE);
 
-        ToastHelper.alert(getResources().getString(R.string.response_error), getActivity());
-    }
-
-    @Override
-    public void errorRegister() {
-        ToastHelper.alert("Erro ao se cadastrar, tente novamente mais tarde", getActivity());
+        ToastHelper.alert(getResources().getString(error), getActivity());
     }
 
     @Override

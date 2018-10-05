@@ -1,5 +1,6 @@
 package app.mvp.ui.fragment.register;
 
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 
 public class NicknameRegisterPresenter implements NicknameRegisterContract.NicknameRegisterPresenter {
@@ -18,7 +19,7 @@ public class NicknameRegisterPresenter implements NicknameRegisterContract.Nickn
 
     private boolean contentFieldsIsValid(String nickname) {
         if (nicknameIsEmpty(nickname)) {
-            view.nicknameIsEmpty();
+            view.error(R.string.empty_nickname);
             return false;
         }
         return true;

@@ -4,9 +4,7 @@ public interface NameRegisterContract {
 
     interface NameRegisterView {
 
-        void nameIsEmpty();
-
-        void notIsFullname();
+        void error(int error);
 
         void openNicknameRegister(String name);
 

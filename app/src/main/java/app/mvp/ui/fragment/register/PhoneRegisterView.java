@@ -30,10 +30,6 @@ public class PhoneRegisterView extends Fragment implements PhoneRegisterContract
 
         user = new User();
         user = registerUser();
-
-        if (presenter == null) {
-            presenter = new PhoneRegisterPresenter(this);
-        }
     }
 
     @Nullable
@@ -56,6 +52,10 @@ public class PhoneRegisterView extends Fragment implements PhoneRegisterContract
         btn_next.setOnClickListener(next);
 
         et_phone.addTextChangedListener(PhoneMaskHelper.insert(et_phone));
+
+        if (presenter == null) {
+            presenter = new PhoneRegisterPresenter(this);
+        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -84,13 +84,8 @@ public class PhoneRegisterView extends Fragment implements PhoneRegisterContract
     }
 
     @Override
-    public void phoneIsEmpty() {
-        il_phone.setError(getString(R.string.empty_phone));
-    }
-
-    @Override
-    public void notIsPhone() {
-        il_phone.setError(getString(R.string.invalid_phone_length));
+    public void error(int error) {
+        il_phone.setError(getString(error));
     }
 
     @Override

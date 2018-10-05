@@ -2,6 +2,7 @@ package app.mvp.ui.fragment.register;
 
 import android.support.annotation.NonNull;
 
+import app.mvp.R;
 import app.mvp.helper.ResponseHelper;
 import app.mvp.model.User;
 import app.mvp.model.server.NoConnectivityException;
@@ -32,18 +33,18 @@ public class PasswordConfirmRegisterModel implements PasswordConfirmRegisterCont
                 if (ResponseHelper.isValid(resp, response)) {
                     presenter.openDashboard(resp);
                 } else {
-                    presenter.errorRegister();
+                    presenter.error(R.string.error_register_response);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                 if (t instanceof NoConnectivityException) {
-                    presenter.errorRequest();
+                    presenter.error(R.string.error_request);
                 }
 
                 if (!call.isCanceled()) {
-                    presenter.errorRequest();
+                    presenter.error(R.string.error_request);
                 }
             }
         });

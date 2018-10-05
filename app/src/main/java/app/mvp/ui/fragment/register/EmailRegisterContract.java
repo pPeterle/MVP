@@ -4,9 +4,7 @@ public interface EmailRegisterContract {
 
     interface EmailRegisterView {
 
-        void emailIsEmpty();
-
-        void notIsEmail();
+        void error(int error);
 
         void openPhoneRegister(String email);
 

@@ -1,14 +1,9 @@
 package app.mvp.ui.fragment.register;
 
-import android.support.annotation.NonNull;
-
+import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
-import app.mvp.retrofit.Config;
-import app.mvp.service.UserService;
 import app.mvp.session.Session;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegisterContract.PasswordConfirmRegisterPresenter {
     private PasswordConfirmRegisterContract.PasswordConfirmRegisterView view;
@@ -31,13 +26,8 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
     }
 
     @Override
-    public void errorRequest() {
-        view.errorRequest();
-    }
-
-    @Override
-    public void errorRegister() {
-        view.errorRegister();
+    public void error(int error) {
+        view.error(error);
     }
 
     @Override
@@ -50,17 +40,17 @@ public class PasswordConfirmRegisterPresenter implements PasswordConfirmRegister
 
     private boolean contentFieldsIsValid(User user) {
         if (passwordIsEmpty(user.getPasswordConfirm())) {
-            view.passwordIsEmpty();
+            view.error(R.string.empty_password);
             return false;
         }
 
         if (notIsSamePassword(user.getPassword(), user.getPasswordConfirm())) {
-            view.notIsSamePassword();
+            view.error(R.string.invalid_password_confirm);
             return false;
         }
 
         if (!user.getCheckBox()) {
-            view.notIsChecked();
+            view.error(R.string.error_accept);
             return false;
         }
         return true;

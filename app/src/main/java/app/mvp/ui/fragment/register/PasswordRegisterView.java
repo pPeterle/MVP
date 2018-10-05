@@ -29,10 +29,6 @@ public class PasswordRegisterView extends Fragment implements PasswordRegisterCo
 
         user = new User();
         user = registerUser();
-
-        if (presenter == null) {
-            presenter = new PasswordRegisterPresenter(this);
-        }
     }
 
     @Nullable
@@ -53,6 +49,10 @@ public class PasswordRegisterView extends Fragment implements PasswordRegisterCo
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
+
+        if (presenter == null) {
+            presenter = new PasswordRegisterPresenter(this);
+        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -82,13 +82,8 @@ public class PasswordRegisterView extends Fragment implements PasswordRegisterCo
     }
 
     @Override
-    public void passwordIsEmpty() {
-        il_password.setError(getString(R.string.empty_password));
-    }
-
-    @Override
-    public void notIsPassword() {
-        il_password.setError(getString(R.string.invalid_password));
+    public void error(int error) {
+        il_password.setError(getString(error));
     }
 
     @Override

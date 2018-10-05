@@ -4,9 +4,7 @@ public interface PasswordRegisterContract {
 
     interface PasswordRegisterView {
 
-        void passwordIsEmpty();
-
-        void notIsPassword();
+        void error(int error);
 
         void openPasswordConfirmRegister(String password);
 

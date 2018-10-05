@@ -32,10 +32,6 @@ public class NicknameRegisterView extends Fragment implements NicknameRegisterCo
 
         user = new User();
         user = registerUser();
-
-        if (presenter == null) {
-            presenter = new NicknameRegisterPresenter(this);
-        }
     }
 
     @Nullable
@@ -59,6 +55,10 @@ public class NicknameRegisterView extends Fragment implements NicknameRegisterCo
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
+
+        if (presenter == null) {
+            presenter = new NicknameRegisterPresenter(this);
+        }
     }
 
     public static String firstWord(String string) {
@@ -89,8 +89,8 @@ public class NicknameRegisterView extends Fragment implements NicknameRegisterCo
     }
 
     @Override
-    public void nicknameIsEmpty() {
-        il_nickname.setError(getString(R.string.empty_nickname));
+    public void error(int error) {
+        il_nickname.setError(getString(error));
     }
 
     @Override

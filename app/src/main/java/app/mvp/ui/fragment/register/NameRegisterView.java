@@ -21,15 +21,6 @@ public class NameRegisterView extends Fragment implements NameRegisterContract.N
     private TextInputLayout il_name;
     private ImageButton btn_next;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (presenter == null) {
-            presenter = new NameRegisterPresenter(this);
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,6 +39,10 @@ public class NameRegisterView extends Fragment implements NameRegisterContract.N
 
         btn_next = view.findViewById(R.id.btn_next);
         btn_next.setOnClickListener(next);
+
+        if (presenter == null) {
+            presenter = new NameRegisterPresenter(this);
+        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
@@ -65,13 +60,8 @@ public class NameRegisterView extends Fragment implements NameRegisterContract.N
     }
 
     @Override
-    public void nameIsEmpty() {
-        il_name.setError(getString(R.string.empty_name));
-    }
-
-    @Override
-    public void notIsFullname() {
-        il_name.setError(getString(R.string.empty_name));
+    public void error(int error) {
+        il_name.setError(getString(error));
     }
 
     @Override
