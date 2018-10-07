@@ -1,5 +1,7 @@
 package app.mvp.ui.fragment.login;
 
+import javax.inject.Inject;
+
 import app.mvp.R;
 import app.mvp.helper.ValidatorHelper;
 import app.mvp.model.User;
@@ -11,6 +13,7 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     private Session session;
 
+    @Inject
     PasswordLoginPresenter(PasswordLoginContract.PasswordLoginView view, Session session) {
         this.view = view;
         this.session = session;
@@ -20,7 +23,6 @@ public class PasswordLoginPresenter implements PasswordLoginContract.PasswordLog
 
     @Override
     public void loginProcess(User user) {
-        // Lógica
         if (contentFieldsIsValid(user.getPassword())) {
             // Faz a requisição com o Retrofit2 e pega os dados da API
             model.request(user);

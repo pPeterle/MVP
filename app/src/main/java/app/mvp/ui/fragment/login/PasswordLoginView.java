@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import javax.inject.Inject;
+
 import app.mvp.App;
 import app.mvp.R;
 import app.mvp.helper.KeyboardToggleHelper;
@@ -22,28 +24,35 @@ import app.mvp.model.User;
 import app.mvp.session.Session;
 import app.mvp.ui.activity.login.LoginView;
 import app.mvp.ui.activity.splash.SplashView;
+import dagger.android.AndroidInjection;
 
 public class PasswordLoginView extends Fragment implements PasswordLoginContract.PasswordLoginView {
-    private PasswordLoginContract.PasswordLoginPresenter presenter;
+
+    @Inject
+    PasswordLoginContract.PasswordLoginPresenter presenter;
+
+    @Inject
+    Session session;
 
     public Intent intent;
     public ProgressBar progress;
 
     private ImageButton btn_next;
-    private Session session;
     private TextInputEditText et_password;
     private TextInputLayout il_password;
     private User user;
 
     @Override
     public void onAttach(Context context) {
+        //AndroidInjection.inject(this);
         super.onAttach(context);
 
-        // USAR DAGGER
+        /*LoginView activity = (LoginView) context;
+        session = ((App) activity.getApplication()).getSession();*/
 
-
-        LoginView activity = (LoginView) context;
-        session = ((App) activity.getApplication()).getSession();
+        if (presenter == null) {
+            presenter = new PasswordLoginPresenter(this, session);
+        }
     }
 
     @Override
@@ -74,10 +83,6 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
         btn_next.setOnClickListener(next);
 
         progress = view.findViewById(R.id.progress);
-
-        if (presenter == null) {
-            presenter = new PasswordLoginPresenter(this, session);
-        }
     }
 
     private View.OnClickListener next = new View.OnClickListener() {
