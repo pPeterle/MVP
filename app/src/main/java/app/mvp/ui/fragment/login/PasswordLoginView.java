@@ -39,6 +39,9 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        // USAR DAGGER
+
+
         LoginView activity = (LoginView) context;
         session = ((App) activity.getApplication()).getSession();
     }
@@ -47,6 +50,7 @@ public class PasswordLoginView extends Fragment implements PasswordLoginContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Tantar não usar
         user = new User();
     }
 

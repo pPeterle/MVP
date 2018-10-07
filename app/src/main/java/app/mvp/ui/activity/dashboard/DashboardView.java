@@ -47,6 +47,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class DashboardView extends AppCompatActivity {
+
+
+
+
+
+    /**
+     *
+     *
+     *
+     *
+     *  EM CONSTRUÇÃO
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
+
+
+
+
+
+
+
+
+
+
     public User user;
 
     private Handler handler;

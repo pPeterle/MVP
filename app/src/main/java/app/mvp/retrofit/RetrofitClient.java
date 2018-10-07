@@ -10,6 +10,12 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 class RetrofitClient {
+
+    // USAR DAGGER
+
+
+
+
     private static Retrofit retrofit = null;
 
     static Retrofit getClient(String url) {

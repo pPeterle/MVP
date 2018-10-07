@@ -5,6 +5,10 @@ import android.app.Application;
 import app.mvp.session.Session;
 
 public class App extends Application {
+
+    // USAR DAGGER
+
+
     private Session session;
 
     public Session getSession() {

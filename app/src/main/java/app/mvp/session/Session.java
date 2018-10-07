@@ -7,6 +7,12 @@ import android.util.Base64;
 import app.mvp.model.User;
 
 public class Session {
+
+
+    // USAR DAGGER
+
+
+
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
 
